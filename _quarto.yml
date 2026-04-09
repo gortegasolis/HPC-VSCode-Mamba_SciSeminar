@@ -12,10 +12,10 @@ book:
     - 2_submit_a_job.qmd
 
 execute:
-  enabled: false
   echo: true
 
 format:
   html:
-    theme: cosmo
+    theme: darkly
+    code-block-bg: true
     code-copy: true

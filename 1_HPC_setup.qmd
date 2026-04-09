@@ -1,9 +1,7 @@
 ---
 title: "Create your Mamba environment and install software"
-author: "Gabriel Ortega-Solis"
-format: html
+author: "Gabriel Ortega-Solís"
 execute:
-  echo: true
   eval: false
 ---
 

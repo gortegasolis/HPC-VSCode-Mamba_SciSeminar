@@ -1,9 +1,7 @@
 ---
 title: "Submit your job using the scheduler"
 author: "Gabriel Ortega-Solís"
-format: html
 execute:
-  echo: true
   eval: false
 ---
 

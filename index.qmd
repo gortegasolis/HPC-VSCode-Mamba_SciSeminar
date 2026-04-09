@@ -1,5 +1,6 @@
 ---
 title: "Welcome"
+author: "Gabriel Ortega-Solís"
 ---
 
 This is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.
