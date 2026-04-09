@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Preparing and submitting a job to a HPC"
+  title: "Preparing and submitting a job to a HPC cluster"
   author: "Gabriel Ortega-Solís"
   date: today
   chapters:
