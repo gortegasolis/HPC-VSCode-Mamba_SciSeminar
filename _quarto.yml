@@ -1,0 +1,19 @@
+project:
+  type: book
+
+book:
+  title: "Preparing and submitting a job to a HPC"
+  author: "Gabriel Ortega-Solís"
+  date: today
+  chapters:
+    - index.qmd
+    - 1_HPC_setup.qmd
+    - 2_submit_a_job.qmd
+
+execute:
+  enabled: false
+  echo: true
+
+format:
+  html:
+    theme: cosmo

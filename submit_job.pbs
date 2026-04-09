@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -N demo_job
+#PBS -l select=1:ncpus=4:mem=8gb
+#PBS -l walltime=01:00:00
+#PBS -q workq
+#PBS -j oe
+
+cd "$PBS_O_WORKDIR"
+bash "run_job.sh"

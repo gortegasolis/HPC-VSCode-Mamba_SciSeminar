@@ -1,0 +1,12 @@
+---
+title: "Welcome"
+---
+
+This is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.
+
+For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way **I like to work**.
+
+## Contents
+
+- **Create your Mamba environment** — Request an interactive session and install software using Mamba.
+- **PBS Job Submission** — Configure and submit batch jobs to the HPC cluster using `qsub`.

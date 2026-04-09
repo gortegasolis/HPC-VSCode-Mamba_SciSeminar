@@ -1,0 +1,92 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Preparing and submitting a job to a HPC",
+    "section": "",
+    "text": "0.1 Contents\nThis is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.\nFor authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way I like to work.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#contents",
+    "href": "index.html#contents",
+    "title": "Preparing and submitting a job to a HPC",
+    "section": "",
+    "text": "Create your Mamba environment — Request an interactive session and install software using Mamba.\nPBS Job Submission — Configure and submit batch jobs to the HPC cluster using qsub.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
+    ]
+  },
+  {
+    "objectID": "1_HPC_setup.html",
+    "href": "1_HPC_setup.html",
+    "title": "2  Create your Mamba environment and install software",
+    "section": "",
+    "text": "3 Request Interactive Session\nRun this command from a login node to request an interactive PBS session:\nqsub -I \\\n  -N mamba_setup \\\n  -l select=1:ncpus=1:mem=16gb \\\n  -l walltime=02:00:00 \\\n  -j oe\n\n\n4 Run Environment Setup Inside the Interactive Session\nAfter PBS allocates the node and you see the interactive shell prompt, run:\nmodule add mambaforge\nmamba create -n geostatistics2 -c conda-forge \"r-terra&gt;=1.8\"\nThe code above will install R as a “side effect” of installing version 1.8 or higher of the terra package. You can replace r-terra with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running mamba create -n SOME_NAME and then install packages one by one or in groups as needed.\n\n\n5 Activate the environment\nmamba activate geostatistics2\n\n\n6 Install more packages\nYou can install more packages in the same environment. For python , just replace the package name after conda-forge with the one you want to install. For R packages you have to write r-PACKAGE_NAME.\nmamba install -c conda-forge geopandas r-sf\n\n\n7 Deactivate the environment when you are done\nmamba deactivate",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create your Mamba environment and install software</span>"
+    ]
+  },
+  {
+    "objectID": "2_submit_a_job.html",
+    "href": "2_submit_a_job.html",
+    "title": "3  Submit your job using the scheduler",
+    "section": "",
+    "text": "4 Settings\nIn this section you can find the basic settings you should consider before launching your job. Modify them according to your requirements. There is a tradeoff to remember: if you request a lot of resources (e.g., many CPU cores, a lot of memory, or a long walltime), your job may take longer to start because it needs to wait for those resources to become available. On the other hand, if you request too few resources, your job may run out of memory or time and fail. So, it’s important to find a balance based on the expected needs of your job.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "2_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
+    "href": "2_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
+    "title": "3  Submit your job using the scheduler",
+    "section": "4.1 General rule-of-thumb strategy for requesting HPC resources",
+    "text": "4.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "2_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
+    "href": "2_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
+    "title": "3  Submit your job using the scheduler",
+    "section": "4.2 Settings to modify before launching your HPC job",
+    "text": "4.2 Settings to modify before launching your HPC job\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"geostatistics\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar\"",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "2_submit_a_job.html#give-execution-permission-to-your-job-script",
+    "href": "2_submit_a_job.html#give-execution-permission-to-your-job-script",
+    "title": "3  Submit your job using the scheduler",
+    "section": "7.1 Give execution permission to your job script",
+    "text": "7.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "2_submit_a_job.html#write-submission-script",
+    "href": "2_submit_a_job.html#write-submission-script",
+    "title": "3  Submit your job using the scheduler",
+    "section": "7.2 Write Submission Script",
+    "text": "7.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "2_submit_a_job.html#submit-job",
+    "href": "2_submit_a_job.html#submit-job",
+    "title": "3  Submit your job using the scheduler",
+    "section": "7.3 Submit Job",
+    "text": "7.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  }
+]
