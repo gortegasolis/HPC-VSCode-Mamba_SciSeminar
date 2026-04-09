@@ -18,3 +18,4 @@ execute:
 format:
   html:
     theme: cosmo
+    code-copy: true
