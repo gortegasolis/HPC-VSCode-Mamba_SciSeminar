@@ -26,7 +26,7 @@ For memory, take the maximum memory usage observed during the test, increase wit
 
 ## Settings to modify before launching your HPC job
 
-```{bash}
+```bash
 # Write a name for your job.
 JOB_NAME="demo_job"
 
@@ -56,7 +56,7 @@ WORK_DIR="/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"
 
 A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn't offer you the right software (or versions) your script requires.
 
-```{bash}
+```bash
 module add mambaforge
 mamba activate "$MAMBA_ENV"
 cd "$WORK_DIR"
@@ -64,7 +64,7 @@ cd "$WORK_DIR"
 
 # Write the bash script to run your job
 
-```{bash}
+```bash
 cat > "$SCRIPT_TO_RUN" <<EOF
 #!/bin/bash
 
@@ -108,13 +108,13 @@ The following code cells should run as is because they take arguments from the s
 
 ## Give execution permission to your job script
 
-```{bash}
+```bash
 chmod +x "$SCRIPT_TO_RUN"
 ```
 
 ## Write Submission Script
 
-```{bash}
+```bash
 cat > "$SCHEDULER_SCRIPT" <<EOF
 #!/bin/bash
 #PBS -N $JOB_NAME
@@ -132,6 +132,6 @@ chmod +x "$SCHEDULER_SCRIPT"
 ## Submit Job
 'qsub' is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.
 
-```{bash}
+```bash
 qsub "$SCHEDULER_SCRIPT"
 ```

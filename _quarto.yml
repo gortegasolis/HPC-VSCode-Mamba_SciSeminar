@@ -16,6 +16,6 @@ execute:
 
 format:
   html:
-    theme: darkly
+    theme: cosmo
     code-block-bg: true
     code-copy: true
