@@ -7,7 +7,11 @@ This is a simple guide for using High-Performance Computing (HPC) clusters. It c
 
 For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way **I like to work**.
 
+[Open Web Presentation](presentation.html){.btn .btn-primary target="_blank"}
+
 ## Contents
 
+- **VS Code Terminal Behavior** — Disable automatic terminal popups in VS Code.
 - **Create your Mamba environment** — Request an interactive session and install software using Mamba.
 - **PBS Job Submission** — Configure and submit batch jobs to the HPC cluster using `qsub`.
+- **MetaCentrum Remote Development** — Run VS Code server on a compute node and connect from your workstation.

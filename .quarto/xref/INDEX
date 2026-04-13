@@ -7,5 +7,20 @@
   },
   "2_submit_a_job.qmd": {
     "2_submit_a_job.html": "fe1f07cd"
+  },
+  "3_vscode_metacentrum_setup.qmd": {
+    "3_vscode_metacentrum_setup.html": "32843db4"
+  },
+  "1_disable_automatic_terminals.qmd": {
+    "1_disable_automatic_terminals.html": "78d29a68"
+  },
+  "2_HPC_setup.qmd": {
+    "2_HPC_setup.html": "eeab8b58"
+  },
+  "3_submit_a_job.qmd": {
+    "3_submit_a_job.html": "b698f988"
+  },
+  "4_vscode_metacentrum_setup.qmd": {
+    "4_vscode_metacentrum_setup.html": "3e0e8dff"
   }
 }

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Preparing and submitting a job to a HPC cluster",
     "section": "",
-    "text": "0.1 Contents\nThis is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.\nFor authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way I like to work.",
+    "text": "0.1 Contents\nThis is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.\nFor authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way I like to work.\nOpen Web Presentation",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
     ]
@@ -14,79 +14,169 @@
     "href": "index.html#contents",
     "title": "Preparing and submitting a job to a HPC cluster",
     "section": "",
-    "text": "Create your Mamba environment — Request an interactive session and install software using Mamba.\nPBS Job Submission — Configure and submit batch jobs to the HPC cluster using qsub.",
+    "text": "VS Code Terminal Behavior — Disable automatic terminal popups in VS Code.\nCreate your Mamba environment — Request an interactive session and install software using Mamba.\nPBS Job Submission — Configure and submit batch jobs to the HPC cluster using qsub.\nMetaCentrum Remote Development — Run VS Code server on a compute node and connect from your workstation.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
     ]
   },
   {
-    "objectID": "1_HPC_setup.html",
-    "href": "1_HPC_setup.html",
-    "title": "2  Create your Mamba environment and install software",
+    "objectID": "1_disable_automatic_terminals.html",
+    "href": "1_disable_automatic_terminals.html",
+    "title": "2  Disable automatic terminal creation in VS Code",
     "section": "",
-    "text": "3 Request Interactive Session\nRun this command from a login node to request an interactive PBS session:\nqsub -I \\\n  -N mamba_setup \\\n  -l select=1:ncpus=1:mem=16gb \\\n  -l walltime=02:00:00 \\\n  -j oe\n\n\n4 Run Environment Setup Inside the Interactive Session\nAfter PBS allocates the node and you see the interactive shell prompt, run:\nmodule add mambaforge\nmamba create -n geostatistics2 -c conda-forge \"r-terra&gt;=1.8\"\nThe code above will install R as a “side effect” of installing version 1.8 or higher of the terra package. You can replace r-terra with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running mamba create -n SOME_NAME and then install packages one by one or in groups as needed.\n\n\n5 Activate the environment\nmamba activate geostatistics2\n\n\n6 Install more packages\nYou can install more packages in the same environment. For python , just replace the package name after conda-forge with the one you want to install. For R packages you have to write r-PACKAGE_NAME.\nmamba install -c conda-forge geopandas r-sf\n\n\n7 Deactivate the environment when you are done\nmamba deactivate",
+    "text": "3 Goal\nThe goal is simple: your commands should always run in the terminal that is already open.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Create your Mamba environment and install software</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Disable automatic terminal creation in VS Code</span>"
     ]
   },
   {
-    "objectID": "2_submit_a_job.html",
-    "href": "2_submit_a_job.html",
-    "title": "3  Submit your job using the scheduler",
+    "objectID": "1_disable_automatic_terminals.html#open-your-settings-json",
+    "href": "1_disable_automatic_terminals.html#open-your-settings-json",
+    "title": "2  Disable automatic terminal creation in VS Code",
+    "section": "4.1 Open your settings JSON",
+    "text": "4.1 Open your settings JSON\nUse Ctrl+Shift+P and run:\n\nPreferences: Open User Settings (JSON)\n\nThen add (or merge) the following keys:\n{\n  \"terminal.integrated.hideOnStartup\": \"always\",\n  \"terminal.integrated.enablePersistentSessions\": false,\n  \"terminal.integrated.persistentSessionReviveProcess\": \"never\",\n  \"python.terminal.activateEnvironment\": false,\n  \"debug.internalConsoleOptions\": \"neverOpen\"\n}\nWith these settings, VS Code is less likely to open new terminals by itself. You can still open new terminals by clicking Terminal&gt; New Terminal on the menu.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Disable automatic terminal creation in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "2_HPC_setup.html",
+    "href": "2_HPC_setup.html",
+    "title": "3  Create your Mamba environment and install software",
     "section": "",
-    "text": "4 Settings\nIn this section you can find the basic settings you should consider before launching your job. Modify them according to your requirements. There is a tradeoff to remember: if you request a lot of resources (e.g., many CPU cores, a lot of memory, or a long walltime), your job may take longer to start because it needs to wait for those resources to become available. On the other hand, if you request too few resources, your job may run out of memory or time and fail. So, it’s important to find a balance based on the expected needs of your job.",
+    "text": "4 Goal\nCreate and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.\n\n\n5 Connect to the login node through SSH\nOpen a terminal on your workstation and connect to the HPC cluster’s login node using SSH. For example:\nssh USERNAME@skirit.metacentrum.cz\nReplace USERNAME with your actual username and skirit.metacentrum.cz with the appropriate login node for your cluster.\n\n\n6 Request an Interactive Session\nRun this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.\nqsub -I \\\n  -N mamba_setup \\\n  -l select=1:ncpus=1:mem=16gb \\\n  -l walltime=02:00:00 \\\n  -j oe\n\n\n7 Run Environment Setup Inside the Interactive Session\nAfter PBS allocates the node and you see the interactive shell prompt, run:\nmodule add mambaforge\nmamba create -n geostatistics2 -c conda-forge \"r-terra&gt;=1.8\"\nThe code above will install R as a “side effect” of installing version 1.8 or higher of the terra package. You can replace r-terra with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running mamba create -n SOME_NAME and then install packages one by one or in groups as needed.\n\n\n8 Activate the environment\nmamba activate geostatistics2\n\n\n9 Install more packages\nYou can install more packages in the same environment. For python , just replace the package name after conda-forge with the one you want to install. For R packages you have to write r-PACKAGE_NAME.\nmamba install -c conda-forge geopandas r-sf\nThe most recommended way to install packages inside your environment is to use mamba install... because it will automatically resolve dependencies and propose a working configuration for all the packages in your environment. However, you can still install packages from other sources (e.g., using pip for Python or install.packages() for R) if you prefer, but be aware that this may lead to dependency conflicts or issues with reproducibility.\nExample of installing an R package from GitHub using remotes:\nRscript -e \"devtools::install_github('gortegasolis/geomattR', dependencies = FALSE, upgrade = 'never', force = TRUE)\"\n\n\n10 Deactivate the environment when you are done\nmamba deactivate",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Create your Mamba environment and install software</span>"
     ]
   },
   {
-    "objectID": "2_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
-    "href": "2_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
-    "title": "3  Submit your job using the scheduler",
-    "section": "4.1 General rule-of-thumb strategy for requesting HPC resources",
-    "text": "4.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
+    "objectID": "3_submit_a_job.html",
+    "href": "3_submit_a_job.html",
+    "title": "4  Submit your job using the scheduler",
+    "section": "",
+    "text": "5 Goal\nPrepare a scheduler script with suitable resources and submit a reproducible batch job with qsub.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "2_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
-    "href": "2_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
-    "title": "3  Submit your job using the scheduler",
-    "section": "4.2 Settings to modify before launching your HPC job",
-    "text": "4.2 Settings to modify before launching your HPC job\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"geostatistics\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar\"",
+    "objectID": "3_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
+    "href": "3_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
+    "title": "4  Submit your job using the scheduler",
+    "section": "7.1 General rule-of-thumb strategy for requesting HPC resources",
+    "text": "7.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "2_submit_a_job.html#give-execution-permission-to-your-job-script",
-    "href": "2_submit_a_job.html#give-execution-permission-to-your-job-script",
-    "title": "3  Submit your job using the scheduler",
-    "section": "7.1 Give execution permission to your job script",
-    "text": "7.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
+    "objectID": "3_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
+    "href": "3_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
+    "title": "4  Submit your job using the scheduler",
+    "section": "7.2 Settings to modify before launching your HPC job",
+    "text": "7.2 Settings to modify before launching your HPC job\nModify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"geostatistics\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar\"",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "2_submit_a_job.html#write-submission-script",
-    "href": "2_submit_a_job.html#write-submission-script",
-    "title": "3  Submit your job using the scheduler",
-    "section": "7.2 Write Submission Script",
-    "text": "7.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
+    "objectID": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
+    "href": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
+    "title": "4  Submit your job using the scheduler",
+    "section": "10.1 Give execution permission to your job script",
+    "text": "10.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "2_submit_a_job.html#submit-job",
-    "href": "2_submit_a_job.html#submit-job",
-    "title": "3  Submit your job using the scheduler",
-    "section": "7.3 Submit Job",
-    "text": "7.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
+    "objectID": "3_submit_a_job.html#write-submission-script",
+    "href": "3_submit_a_job.html#write-submission-script",
+    "title": "4  Submit your job using the scheduler",
+    "section": "10.2 Write Submission Script",
+    "text": "10.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "3_submit_a_job.html#submit-job",
+    "href": "3_submit_a_job.html#submit-job",
+    "title": "4  Submit your job using the scheduler",
+    "section": "10.3 Submit Job",
+    "text": "10.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html",
+    "href": "4_vscode_metacentrum_setup.html",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "",
+    "text": "6 Goal\nThis chapter explains the recommended MetaCentrum workflow where the VS Code server runs on a compute node and the UI runs on your workstation.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html#prerequisites",
+    "href": "4_vscode_metacentrum_setup.html#prerequisites",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "7.1 Prerequisites",
+    "text": "7.1 Prerequisites\n\nVS Code extension: Remote - SSH (Microsoft)\nYour MetaCentrum account and SSH access to a frontend (for example skirit.metacentrum.cz)\nA free TCP port between 7000 and 30000 (example below uses 26759)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html#create-a-local-ssh-key-for-this-workflow",
+    "href": "4_vscode_metacentrum_setup.html#create-a-local-ssh-key-for-this-workflow",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "7.2 1. Create a local SSH key for this workflow",
+    "text": "7.2 1. Create a local SSH key for this workflow\nOn your workstation:\nssh-keygen -f ~/.ssh/metacentrum_vscode\nThis creates:\n\nprivate key: ~/.ssh/metacentrum_vscode\npublic key: ~/.ssh/metacentrum_vscode.pub",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html#configure-.sshconfig-on-your-workstation",
+    "href": "4_vscode_metacentrum_setup.html#configure-.sshconfig-on-your-workstation",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "7.3 2. Configure ~/.ssh/config on your workstation",
+    "text": "7.3 2. Configure ~/.ssh/config on your workstation\nPick your preferred frontend and chosen port, then add entries similar to:\nHost skirit.metacentrum.cz\n  Port 22\n  PubkeyAuthentication no\n\nHost *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *.ibot.cas.cz *.ics.muni.cz *.metacentrum.cz *.meta.zcu.cz *.natur.cuni.cz *.nti.tul.cz *.ueb.cas.cz\n  Port 26759\n  IdentityFile ~/.ssh/metacentrum_vscode\nThis tells VS Code to use your selected port and key when connecting to compute nodes.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node",
+    "href": "4_vscode_metacentrum_setup.html#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "7.4 3. Start an interactive job and launch SSH server on the compute node",
+    "text": "7.4 3. Start an interactive job and launch SSH server on the compute node\nFirst request an interactive job from a frontend:\nqsub -I -N vscode_dev -l select=1:ncpus=4:mem=16gb -l walltime=04:00:00\nAfter the shell opens on the compute node, run:\nmkdir -p \"$SCRATCHDIR/.ssh\"\nchmod 700 \"$SCRATCHDIR/.ssh\"\nrm -f \"$SCRATCHDIR/.ssh/server_key\" \"$SCRATCHDIR/.ssh/server_key.pub\"\nssh-keygen -f \"$SCRATCHDIR/.ssh/server_key\" -N \"\" -C \"VSCode\" -q -t ed25519\n\ntouch \"$SCRATCHDIR/.ssh/authorized_keys\"\nchmod 600 \"$SCRATCHDIR/.ssh/authorized_keys\"\nNow append your local public key (from ~/.ssh/metacentrum_vscode.pub) into authorized_keys on the compute node:\ncat &gt;&gt; \"$SCRATCHDIR/.ssh/authorized_keys\"\n# paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D\nChoose/check port and start SSH daemon:\nPORT=26759\nnetstat -tan | grep -q \"0.0.0.0:$PORT \" && { echo \"Port $PORT is busy\"; exit 1; }\n\n/usr/sbin/sshd -D -p \"$PORT\" \\\n  -o \"HostKey $SCRATCHDIR/.ssh/server_key\" \\\n  -o \"PermitRootLogin no\" \\\n  -o \"PasswordAuthentication no\" \\\n  -o \"ChallengeResponseAuthentication no\" &\n\nhostname\nKeep this job running. The printed hostname is the compute node you will connect to from VS Code.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html#connect-from-vs-code-to-the-compute-node",
+    "href": "4_vscode_metacentrum_setup.html#connect-from-vs-code-to-the-compute-node",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "7.5 4. Connect from VS Code to the compute node",
+    "text": "7.5 4. Connect from VS Code to the compute node\nUse Ctrl+Shift+P:\n\nRemote-SSH: Connect to Host...\nEnter/select the compute-node hostname printed by hostname\n\nBecause of your SSH config, VS Code will use port 26759 and key ~/.ssh/metacentrum_vscode.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "4_vscode_metacentrum_setup.html#validate-the-connection-in-vs-code-terminal",
+    "href": "4_vscode_metacentrum_setup.html#validate-the-connection-in-vs-code-terminal",
+    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "section": "7.6 5. Validate the connection in VS Code terminal",
+    "text": "7.6 5. Validate the connection in VS Code terminal\nhostname\nwhoami\npwd\nYou should see your compute-node hostname, your username, and your working directory.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
     ]
   }
 ]

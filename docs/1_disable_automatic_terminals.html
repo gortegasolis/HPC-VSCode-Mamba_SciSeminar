@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gabriel Ortega-Solís">
 
-<title>2&nbsp; Create your Mamba environment and install software – Preparing and submitting a job to a HPC cluster</title>
+<title>2&nbsp; Disable automatic terminal creation in VS Code – Preparing and submitting a job to a HPC cluster</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./2_submit_a_job.html" rel="next">
+<link href="./2_HPC_setup.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_HPC_setup.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_disable_automatic_terminals.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Disable automatic terminal creation in VS Code</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,14 +152,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_HPC_setup.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></span></a>
+  <a href="./1_disable_automatic_terminals.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Disable automatic terminal creation in VS Code</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_submit_a_job.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Submit your job using the scheduler</span></span></a>
+  <a href="./2_HPC_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_submit_a_job.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Submit your job using the scheduler</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_vscode_metacentrum_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Configure MetaCentrum remote development in VS Code</span></span></a>
   </div>
 </li>
     </ul>
@@ -172,11 +184,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#request-interactive-session" id="toc-request-interactive-session" class="nav-link active" data-scroll-target="#request-interactive-session"><span class="header-section-number">3</span> Request Interactive Session</a></li>
-  <li><a href="#run-environment-setup-inside-the-interactive-session" id="toc-run-environment-setup-inside-the-interactive-session" class="nav-link" data-scroll-target="#run-environment-setup-inside-the-interactive-session"><span class="header-section-number">4</span> Run Environment Setup Inside the Interactive Session</a></li>
-  <li><a href="#activate-the-environment" id="toc-activate-the-environment" class="nav-link" data-scroll-target="#activate-the-environment"><span class="header-section-number">5</span> Activate the environment</a></li>
-  <li><a href="#install-more-packages" id="toc-install-more-packages" class="nav-link" data-scroll-target="#install-more-packages"><span class="header-section-number">6</span> Install more packages</a></li>
-  <li><a href="#deactivate-the-environment-when-you-are-done" id="toc-deactivate-the-environment-when-you-are-done" class="nav-link" data-scroll-target="#deactivate-the-environment-when-you-are-done"><span class="header-section-number">7</span> Deactivate the environment when you are done</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link active" data-scroll-target="#goal"><span class="header-section-number">3</span> Goal</a></li>
+  <li><a href="#disable-automatic-terminal-creation-in-vs-code" id="toc-disable-automatic-terminal-creation-in-vs-code" class="nav-link" data-scroll-target="#disable-automatic-terminal-creation-in-vs-code"><span class="header-section-number">4</span> Disable Automatic Terminal Creation in VS Code</a>
+  <ul class="collapse">
+  <li><a href="#open-your-settings-json" id="toc-open-your-settings-json" class="nav-link" data-scroll-target="#open-your-settings-json"><span class="header-section-number">4.1</span> Open your settings JSON</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -185,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Disable automatic terminal creation in VS Code</span></h1>
 </div>
 
 
@@ -208,36 +220,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="request-interactive-session" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Request Interactive Session</h1>
-<p>Run this command from a login node to request an interactive PBS session:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="dt">\</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-N</span> mamba_setup <span class="dt">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> select=1:ncpus=1:mem=16gb <span class="dt">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> walltime=02:00:00 <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-j</span> oe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="goal" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Goal</h1>
+<p>The goal is simple: your commands should always run in the terminal that is already open.</p>
 </section>
-<section id="run-environment-setup-inside-the-interactive-session" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Run Environment Setup Inside the Interactive Session</h1>
-<p>After PBS allocates the node and you see the interactive shell prompt, run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> geostatistics2 <span class="at">-c</span> conda-forge <span class="st">"r-terra&gt;=1.8"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The code above will install R as a “side effect” of installing version 1.8 or higher of the <code>terra</code> package. You can replace <code>r-terra</code> with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running <code>mamba create -n SOME_NAME</code> and then install packages one by one or in groups as needed.</p>
-</section>
-<section id="activate-the-environment" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Activate the environment</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate geostatistics2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="install-more-packages" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Install more packages</h1>
-<p>You can install more packages in the same environment. For python , just replace the package name after <em>conda-forge</em> with the one you want to install. For R packages you have to write r-PACKAGE_NAME.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> conda-forge geopandas r-sf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="deactivate-the-environment-when-you-are-done" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Deactivate the environment when you are done</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="disable-automatic-terminal-creation-in-vs-code" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Disable Automatic Terminal Creation in VS Code</h1>
+<p>VS Code may create extra terminals because of restored sessions, Python auto-activation, or debug/task behavior. Disable these triggers so you can keep working in one terminal.</p>
+<section id="open-your-settings-json" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="open-your-settings-json"><span class="header-section-number">4.1</span> Open your settings JSON</h2>
+<p>Use <strong>Ctrl+Shift+P</strong> and run:</p>
+<ul>
+<li><code>Preferences: Open User Settings (JSON)</code></li>
+</ul>
+<p>Then add (or merge) the following keys:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"terminal.integrated.hideOnStartup"</span><span class="fu">:</span> <span class="st">"always"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"terminal.integrated.enablePersistentSessions"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"terminal.integrated.persistentSessionReviveProcess"</span><span class="fu">:</span> <span class="st">"never"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"python.terminal.activateEnvironment"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"debug.internalConsoleOptions"</span><span class="fu">:</span> <span class="st">"neverOpen"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>With these settings, VS Code is less likely to open new terminals by itself. You can still open new terminals by clicking Terminal&gt; New Terminal on the menu.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -648,8 +655,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./2_submit_a_job.html" class="pagination-link" aria-label="Submit your job using the scheduler">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Submit your job using the scheduler</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./2_HPC_setup.html" class="pagination-link" aria-label="Create your Mamba environment and install software">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

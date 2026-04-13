@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel Ortega-Solís">
-<meta name="dcterms.date" content="2026-04-13">
 
-<title>Preparing and submitting a job to a HPC cluster</title>
+<title>3&nbsp; Create your Mamba environment and install software – Preparing and submitting a job to a HPC cluster</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +66,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1_disable_automatic_terminals.html" rel="next">
+<link href="./3_submit_a_job.html" rel="next">
+<link href="./1_disable_automatic_terminals.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_HPC_setup.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -111,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></span></a>
   </div>
 </li>
@@ -123,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_HPC_setup.html" class="sidebar-item-text sidebar-link">
+  <a href="./2_HPC_setup.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></span></a>
   </div>
 </li>
@@ -149,7 +184,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#contents" id="toc-contents" class="nav-link active" data-scroll-target="#contents"><span class="header-section-number">0.1</span> Contents</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link active" data-scroll-target="#goal"><span class="header-section-number">4</span> Goal</a></li>
+  <li><a href="#connect-to-the-login-node-through-ssh" id="toc-connect-to-the-login-node-through-ssh" class="nav-link" data-scroll-target="#connect-to-the-login-node-through-ssh"><span class="header-section-number">5</span> Connect to the login node through SSH</a></li>
+  <li><a href="#request-an-interactive-session" id="toc-request-an-interactive-session" class="nav-link" data-scroll-target="#request-an-interactive-session"><span class="header-section-number">6</span> Request an Interactive Session</a></li>
+  <li><a href="#run-environment-setup-inside-the-interactive-session" id="toc-run-environment-setup-inside-the-interactive-session" class="nav-link" data-scroll-target="#run-environment-setup-inside-the-interactive-session"><span class="header-section-number">7</span> Run Environment Setup Inside the Interactive Session</a></li>
+  <li><a href="#activate-the-environment" id="toc-activate-the-environment" class="nav-link" data-scroll-target="#activate-the-environment"><span class="header-section-number">8</span> Activate the environment</a></li>
+  <li><a href="#install-more-packages" id="toc-install-more-packages" class="nav-link" data-scroll-target="#install-more-packages"><span class="header-section-number">9</span> Install more packages</a></li>
+  <li><a href="#deactivate-the-environment-when-you-are-done" id="toc-deactivate-the-environment-when-you-are-done" class="nav-link" data-scroll-target="#deactivate-the-environment-when-you-are-done"><span class="header-section-number">10</span> Deactivate the environment when you are done</a></li>
   </ul>
 </nav>
     </div>
@@ -158,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Preparing and submitting a job to a HPC cluster</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create your Mamba environment and install software</span></h1>
 </div>
 
 
@@ -172,12 +213,6 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 13, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -187,17 +222,47 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.</p>
-<p>For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way <strong>I like to work</strong>.</p>
-<p><a href="presentation.html" class="btn btn-primary" target="_blank">Open Web Presentation</a></p>
-<section id="contents" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="contents"><span class="header-section-number">0.1</span> Contents</h2>
-<ul>
-<li><strong>VS Code Terminal Behavior</strong> — Disable automatic terminal popups in VS Code.</li>
-<li><strong>Create your Mamba environment</strong> — Request an interactive session and install software using Mamba.</li>
-<li><strong>PBS Job Submission</strong> — Configure and submit batch jobs to the HPC cluster using <code>qsub</code>.</li>
-<li><strong>MetaCentrum Remote Development</strong> — Run VS Code server on a compute node and connect from your workstation.</li>
-</ul>
+<section id="goal" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Goal</h1>
+<p>Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.</p>
+</section>
+<section id="connect-to-the-login-node-through-ssh" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Connect to the login node through SSH</h1>
+<p>Open a terminal on your workstation and connect to the HPC cluster’s login node using SSH. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
+</section>
+<section id="request-an-interactive-session" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Request an Interactive Session</h1>
+<p>Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-N</span> mamba_setup <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> select=1:ncpus=1:mem=16gb <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> walltime=02:00:00 <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-j</span> oe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="run-environment-setup-inside-the-interactive-session" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Run Environment Setup Inside the Interactive Session</h1>
+<p>After PBS allocates the node and you see the interactive shell prompt, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> geostatistics2 <span class="at">-c</span> conda-forge <span class="st">"r-terra&gt;=1.8"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The code above will install R as a “side effect” of installing version 1.8 or higher of the <code>terra</code> package. You can replace <code>r-terra</code> with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running <code>mamba create -n SOME_NAME</code> and then install packages one by one or in groups as needed.</p>
+</section>
+<section id="activate-the-environment" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Activate the environment</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate geostatistics2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="install-more-packages" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Install more packages</h1>
+<p>You can install more packages in the same environment. For python , just replace the package name after <em>conda-forge</em> with the one you want to install. For R packages you have to write r-PACKAGE_NAME.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> conda-forge geopandas r-sf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The most recommended way to install packages inside your environment is to use <code>mamba install...</code> because it will automatically resolve dependencies and propose a working configuration for all the packages in your environment. However, you can still install packages from other sources (e.g., using <code>pip</code> for Python or <code>install.packages()</code> for R) if you prefer, but be aware that this may lead to dependency conflicts or issues with reproducibility.</p>
+<p>Example of installing an R package from GitHub using <code>remotes</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">"devtools::install_github('gortegasolis/geomattR', dependencies = FALSE, upgrade = 'never', force = TRUE)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="deactivate-the-environment-when-you-are-done" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Deactivate the environment when you are done</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -605,10 +670,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./1_disable_automatic_terminals.html" class="pagination-link" aria-label="Disable automatic terminal creation in VS Code">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Disable automatic terminal creation in VS Code</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1_disable_automatic_terminals.html" class="pagination-link" aria-label="Disable automatic terminal creation in VS Code">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Disable automatic terminal creation in VS Code</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./3_submit_a_job.html" class="pagination-link" aria-label="Submit your job using the scheduler">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Submit your job using the scheduler</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
