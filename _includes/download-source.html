@@ -1,0 +1,33 @@
+<div id="download-qmd-wrap" style="margin-top: 2rem;"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const path = window.location.pathname;
+  const htmlFile = path.split("/").pop() || "index.html";
+  const qmdFile = htmlFile.replace(/\.html?$/, ".qmd");
+
+  const a = document.createElement("a");
+  a.href = qmdFile;
+  a.textContent = "Download source (.qmd)";
+  a.setAttribute("download", "");
+  a.className = "btn btn-outline-primary";
+
+  const wrap = document.getElementById("download-qmd-wrap");
+  if (!wrap) return;
+
+  wrap.style.marginTop = "0.75rem";
+  wrap.appendChild(a);
+
+  // Prefer placement near title/author metadata on Quarto book pages.
+  const titleMeta = document.querySelector("#title-block-header .quarto-title-meta");
+  if (titleMeta) {
+    titleMeta.insertAdjacentElement("afterend", wrap);
+    return;
+  }
+
+  const titleHeader = document.getElementById("title-block-header");
+  if (titleHeader) {
+    titleHeader.appendChild(wrap);
+  }
+});
+</script>

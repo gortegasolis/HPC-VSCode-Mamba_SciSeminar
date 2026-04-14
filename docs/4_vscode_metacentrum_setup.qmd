@@ -1,0 +1,118 @@
+---
+title: "Configure MetaCentrum remote development in VS Code"
+author: "Gabriel Ortega-Solís"
+execute:
+  eval: false
+---
+
+# Goal
+
+This chapter explains the recommended MetaCentrum workflow where the VS Code server runs on a compute node and the UI runs on your workstation.
+
+# Configure MetaCentrum for VS Code (recommended method)
+
+The official recommendation is to run the VS Code server on a **computing node** (inside a job), not on a shared frontend.
+
+## Prerequisites
+
+- VS Code extension: **Remote - SSH** (Microsoft)
+- Your MetaCentrum account and SSH access to a frontend (for example `skirit.metacentrum.cz`)
+- A free TCP port between `7000` and `30000` (example below uses `26759`)
+
+## 1. Create a local SSH key for this workflow
+
+On your workstation:
+
+```bash
+ssh-keygen -f ~/.ssh/metacentrum_vscode
+```
+
+This creates:
+
+- private key: `~/.ssh/metacentrum_vscode`
+- public key: `~/.ssh/metacentrum_vscode.pub`
+
+## 2. Configure `~/.ssh/config` on your workstation
+
+Pick your preferred frontend and chosen port, then add entries similar to:
+
+```ssh-config
+Host skirit.metacentrum.cz
+  Port 22
+  PubkeyAuthentication no
+
+Host *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *.ibot.cas.cz *.ics.muni.cz *.metacentrum.cz *.meta.zcu.cz *.natur.cuni.cz *.nti.tul.cz *.ueb.cas.cz
+  Port 26759
+  IdentityFile ~/.ssh/metacentrum_vscode
+```
+
+This tells VS Code to use your selected port and key when connecting to compute nodes.
+
+## 3. Start an interactive job and launch SSH server on the compute node
+
+First request an interactive job from a frontend:
+
+```bash
+qsub -I -N vscode_dev -l select=1:ncpus=4:mem=16gb -l walltime=04:00:00
+```
+
+After the shell opens on the compute node, run:
+
+```bash
+mkdir -p "$SCRATCHDIR/.ssh"
+chmod 700 "$SCRATCHDIR/.ssh"
+rm -f "$SCRATCHDIR/.ssh/server_key" "$SCRATCHDIR/.ssh/server_key.pub"
+ssh-keygen -f "$SCRATCHDIR/.ssh/server_key" -N "" -C "VSCode" -q -t ed25519
+
+touch "$SCRATCHDIR/.ssh/authorized_keys"
+chmod 600 "$SCRATCHDIR/.ssh/authorized_keys"
+```
+
+Now append your **local public key** (from `~/.ssh/metacentrum_vscode.pub`) into `authorized_keys` on the compute node:
+
+```bash
+cat >> "$SCRATCHDIR/.ssh/authorized_keys"
+# paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D
+```
+
+Choose/check port and start SSH daemon:
+
+```bash
+PORT=26759
+netstat -tan | grep -q "0.0.0.0:$PORT " && { echo "Port $PORT is busy"; exit 1; }
+
+/usr/sbin/sshd -D -p "$PORT" \
+  -o "HostKey $SCRATCHDIR/.ssh/server_key" \
+  -o "PermitRootLogin no" \
+  -o "PasswordAuthentication no" \
+  -o "ChallengeResponseAuthentication no" &
+
+hostname
+```
+
+Keep this job running. The printed hostname is the compute node you will connect to from VS Code.
+
+## 4. Connect from VS Code to the compute node
+
+Use **Ctrl+Shift+P**:
+
+- `Remote-SSH: Connect to Host...`
+- Enter/select the compute-node hostname printed by `hostname`
+
+Because of your SSH config, VS Code will use port `26759` and key `~/.ssh/metacentrum_vscode`.
+
+## 5. Validate the connection in VS Code terminal
+
+```bash
+hostname
+whoami
+pwd
+```
+
+You should see your compute-node hostname, your username, and your working directory.
+
+# Notes for HPC Work
+
+- Use frontends for login and job submission only.
+- Run development workloads in compute-node jobs.
+- When the job ends, the compute-node SSH server also ends.
