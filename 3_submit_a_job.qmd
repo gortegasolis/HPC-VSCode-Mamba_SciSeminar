@@ -86,6 +86,11 @@ mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
 ```
 
+Deactivate the Mamba environment for now, as we will load it in the job script later:
+```{bash}
+mamba deactivate
+```
+
 # Write the bash script to run your job
 
 This section assumes you already tested your script and know it works. Here we just write the script to a file, but you can also create it with a text editor and copy-paste the content. The important thing is that the script contains all the commands needed to run your job, including loading packages/libraries, accessing datasets, and saving outputs.
