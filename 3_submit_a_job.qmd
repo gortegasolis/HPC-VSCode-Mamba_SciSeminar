@@ -14,6 +14,7 @@ Open a terminal on your workstation and connect to the HPC cluster's login node 
 ```{bash}
 ssh USERNAME@skirit.metacentrum.cz
 ```
+
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
 
 # Settings
@@ -64,7 +65,7 @@ MAMBA_ENV="geostatistics"
 WORK_DIR="/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"
 ```
 
-# Activate your Mamba Environment
+# Test your Mamba Environment
 
 A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn't offer you the right software (or versions) your script requires.
 ```{bash}
@@ -72,7 +73,14 @@ module add mambaforge
 mamba activate "$MAMBA_ENV"
 ```
 
-Create your working directory if it doesn't exist and move to it:
+Check if the software you need is available in the Mamba environment. For example, if you need R and the 'terra' package, you can run:
+```{bash}
+which R
+which Rscript
+```
+Both lines should point to an R or Rscript executable inside your Mamba environment.
+
+Now create your working directory if it doesn't exist and move to it:
 ```{bash}
 mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
@@ -87,15 +95,18 @@ cat > "$SCRIPT_TO_RUN" <<EOF
 
 set -euo pipefail
 
+module add mambaforge
+mamba activate "$MAMBA_ENV"
+
 ###########################################################################
 # Example of R commands
-############################################################################
+###########################################################################
 
 Rscript - <<'RSCRIPT'
 
 ###########################################################################
 # PASTE YOUR R CODE BELOW THIS LINE.
-############################################################################
+###########################################################################
 
 
 
@@ -111,7 +122,7 @@ print(mean_val)
 
 ###########################################################################
 # DO NOT MODIFY BELOW THIS LINE.
-############################################################################
+###########################################################################
 
 RSCRIPT
 
