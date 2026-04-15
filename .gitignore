@@ -1,3 +1,6 @@
 /.quarto/
 **/*.quarto_ipynb
 Global_Islands_geometry.qmd
+Data/COP90.tif
+Data/COP90.tif.aux.xml
+Data/South.gpkg
