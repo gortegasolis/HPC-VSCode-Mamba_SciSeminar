@@ -24,11 +24,12 @@ Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with th
 A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn't offer you the right software (or versions) your script requires.
 ```{bash}
 module add mambaforge
-mamba activate "$MAMBA_ENV"
+mamba env list
 ```
 
-Check if the software you need is available in the Mamba environment. For example, if you need R you can run:
+Activate your chosen mamba environment to check if the software you need is already available. For example, if you need R you can run:
 ```{bash}
+mamba activate /storage/brno2/home/gortega/mamba/envs/geostats
 which R
 which Rscript
 ```
@@ -36,8 +37,8 @@ Both lines should point to an R or Rscript executable inside your Mamba environm
 
 Now create your working directory if it doesn't exist and move to it:
 ```{bash}
-mkdir -p "$WORK_DIR"
-cd "$WORK_DIR"
+mkdir -p /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
+cd /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
 ```
 
 Deactivate the Mamba environment and exit the login node momentarily to copy the working data to the compute node in the next section.:
@@ -50,7 +51,8 @@ exit
 Use `scp` to copy your dataset. For example:
 ```{bash}
 scp Data/COP90.tif gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-
+```
+```{bash}
 scp Data/South.gpkg gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
 ```
 
@@ -61,6 +63,12 @@ ssh USERNAME@skirit.metacentrum.cz
 ```
 
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
+
+Now you can move to your working directory and check that the files were copied successfully:
+```{bash}
+cd /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
+ls -l
+```
 
 # Scheduler settings
 
@@ -126,7 +134,7 @@ mamba activate "$MAMBA_ENV"
 # Example of R commands
 ###########################################################################
 
-nohup Rscript - <<'RSCRIPT'
+Rscript - <<'RSCRIPT'
 
 ###########################################################################
 # PASTE YOUR R CODE BELOW THIS LINE.
@@ -139,11 +147,12 @@ library(terra)
 r <- rast("COP90.tif")
 v <- vect("South.gpkg")
 
-mean_val <- global(r, "mean", na.rm = TRUE)
+cropped <- crop(r, v, mask = TRUE)
+
+mean_val <- global(cropped, "mean", na.rm = TRUE)
 print(mean_val)
 
-cropped <- crop(r, v)
-writeRaster(cropped, "cropped.tif")
+writeRaster(cropped, "cropped.tif", overwrite = TRUE)
 
 ###########################################################################
 # DO NOT MODIFY BELOW THIS LINE.
