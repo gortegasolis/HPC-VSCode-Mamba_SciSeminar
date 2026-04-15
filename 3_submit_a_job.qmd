@@ -12,7 +12,7 @@ execute:
 Prepare a scheduler script with suitable resources and submit a reproducible batch job with `qsub`.
 
 # Connect to the login node through SSH
-Open a terminal on your workstation and connect to the HPC cluster's login node using SSH. For example:
+Open a terminal on your personal computer and connect to the HPC cluster's login node using SSH. For example:
 ```{bash}
 ssh USERNAME@skirit.metacentrum.cz
 ```
@@ -24,7 +24,7 @@ Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with th
 A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn't offer you the right software (or versions) your script requires.
 ```{bash}
 module add mambaforge
-mamba env list
+module list
 ```
 
 Activate your chosen mamba environment to check if the software you need is already available. For example, if you need R you can run:

@@ -6,14 +6,14 @@ execute:
 ---
 
 # Note
-**This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.
+**This tutorial assumes that you successfully disabled automatic terminal creation in VSCode.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.
 
 # Goal
 
-Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.
+Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting jobs.
 
 # Connect to the login node through SSH
-Open a terminal on your workstation and connect to the HPC cluster's login node using SSH. For example:
+Open a terminal on your personal computer and connect to the HPC cluster's login node using SSH. For example:
 ```{bash}
 ssh USERNAME@skirit.metacentrum.cz
 ```
@@ -23,11 +23,11 @@ Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with th
 
 Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.
 ```{bash}
-qsub -I \
-  -N mamba_setup \
-  -l select=1:ncpus=1:mem=16gb \
-  -l walltime=02:00:00 \
-  -j oe
+qsub -I \                          # Request interactive session
+  -N mamba_setup \                 # Job name
+  -l select=1:ncpus=1:mem=16gb \   # 1 node, 1 CPU, 16GB memory
+  -l walltime=02:00:00 \           # Max runtime: 2 hours
+  -j oe                            # Merge output and error streams
 ```
 
 # Run environment setup inside the interactive session

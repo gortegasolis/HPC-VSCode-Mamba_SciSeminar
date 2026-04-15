@@ -12,7 +12,7 @@ execute:
 Prepare a scheduler script with suitable resources and submit a reproducible batch job with `qsub`.
 
 # Connect to the login node through SSH
-Open a terminal on your workstation and connect to the HPC cluster's login node using SSH. For example:
+Open a terminal on your personal computer and connect to the HPC cluster's login node using SSH. For example:
 ```{bash}
 ssh USERNAME@skirit.metacentrum.cz
 ```

@@ -9,7 +9,7 @@ execute:
 
 # Goal
 
-This chapter explains the recommended MetaCentrum workflow where the VS Code server runs on a compute node and the UI runs on your workstation.
+This chapter explains the recommended MetaCentrum workflow where the VS Code server runs on a compute node and the UI runs on your personal computer.
 
 # Configure MetaCentrum for VS Code (recommended method)
 
@@ -23,7 +23,7 @@ The official recommendation is to run the VS Code server on a **computing node**
 
 ## 1. Create a local SSH key for this workflow
 
-On your workstation:
+On your personal computer:
 
 ```{bash}
 ssh-keygen -f ~/.ssh/metacentrum_vscode
@@ -34,7 +34,7 @@ This creates:
 - private key: `~/.ssh/metacentrum_vscode`
 - public key: `~/.ssh/metacentrum_vscode.pub`
 
-## 2. Configure `~/.ssh/config` on your workstation
+## 2. Configure `~/.ssh/config` on your personal computer
 
 Pick your preferred frontend and chosen port, then add entries similar to:
 

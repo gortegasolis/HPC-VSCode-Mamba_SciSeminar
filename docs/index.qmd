@@ -14,4 +14,4 @@ For authorative information on how to use the HPC cluster, please refer to the o
 - **VS Code Terminal Behavior** — Disable automatic terminal popups in VS Code.
 - **Create your Mamba environment** — Request an interactive session and install software using Mamba.
 - **PBS Job Submission** — Configure and submit batch jobs to the HPC cluster using `qsub`.
-- **MetaCentrum Remote Development** — Run VS Code server on a compute node and connect from your workstation.
+- **MetaCentrum Remote Development** — Run VS Code server on a compute node and connect from your personal computer.
