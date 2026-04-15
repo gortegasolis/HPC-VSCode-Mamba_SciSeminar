@@ -21,7 +21,7 @@ Use **Ctrl+Shift+P** and run:
 
 Then add (or merge) the following keys:
 
-``` json
+```json
 {
   "terminal.integrated.hideOnStartup": "always",
   "terminal.integrated.enablePersistentSessions": false,
