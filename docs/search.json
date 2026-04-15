@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Preparing and submitting a job to a HPC cluster",
     "section": "",
-    "text": "0.1 Contents\nThis is a simple and a bit unconventional approach for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.\nThe chapters are tailored to be executed in VSCode and probably work also in Positron or Antigravity. If you are not using one of these IDEs, you can still follow the instructions by copying and pasting the code snippets into a terminal. The main idea is to show how to set up your HPC environment and submit jobs in a way that is reproducible and enforce documented workflows.\nFor authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution or HPC services provider. This guide is a starting point that shows just the way I like to work.\nOpen Web Presentation",
+    "text": "0.1 Contents\nThis is a simple and a bit unconventional approach for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.\nThe chapters are tailored to be executed in VSCode and probably work also in Positron or Antigravity. If you are not using one of these IDEs, you can still follow the instructions by copying and pasting the code snippets into a terminal. The main idea is to show how to set up your HPC environment and submit jobs in a way that is reproducible and enforce documented workflows.\nFor authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution or HPC services provider. This guide is a starting point but you can do more complex tasks and optimizations once you are familiar with the basics.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
     ]
@@ -83,8 +83,8 @@
     "objectID": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
     "href": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
     "title": "4  Submit your job using the scheduler",
-    "section": "11.1 Give execution permission to your job script",
-    "text": "11.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
+    "section": "12.1 Give execution permission to your job script",
+    "text": "12.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
@@ -93,8 +93,8 @@
     "objectID": "3_submit_a_job.html#write-submission-script",
     "href": "3_submit_a_job.html#write-submission-script",
     "title": "4  Submit your job using the scheduler",
-    "section": "11.2 Write Submission Script",
-    "text": "11.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
+    "section": "12.2 Write Submission Script",
+    "text": "12.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
@@ -103,8 +103,8 @@
     "objectID": "3_submit_a_job.html#submit-job",
     "href": "3_submit_a_job.html#submit-job",
     "title": "4  Submit your job using the scheduler",
-    "section": "11.3 Submit Job",
-    "text": "11.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
+    "section": "12.3 Submit Job",
+    "text": "12.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
