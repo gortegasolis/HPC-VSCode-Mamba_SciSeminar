@@ -19,7 +19,7 @@ ssh USERNAME@skirit.metacentrum.cz
 
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
 
-# Test your Mamba Environment
+# Test your Mamba environment
 
 A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn't offer you the right software (or versions) your script requires.
 ```{bash}
@@ -49,9 +49,9 @@ exit
 # Copy data to the HPC cluster
 Use `scp` to copy your dataset. For example:
 ```{bash}
-scp Data/COP90.tif /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar
+scp Data/COP90.tif gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
 
-scp Data/South.gpkg /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar
+scp Data/South.gpkg gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
 ```
 
 # Connect to the login node again through SSH
@@ -62,7 +62,7 @@ ssh USERNAME@skirit.metacentrum.cz
 
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
 
-# Scheduler Settings
+# Scheduler settings
 
 In this section you can find the basic settings you should consider before launching your job. Modify them according to your requirements. There is a tradeoff to remember: if you request a lot of resources (e.g., many CPU cores, a lot of memory, or a long walltime), your job may take longer to start because it needs to wait for those resources to become available. On the other hand, if you request too few resources, your job may run out of memory or time and fail. So, it's important to find a balance based on the expected needs of your job.
 
@@ -165,7 +165,7 @@ The following code cells should run as is because they take arguments from the s
 chmod +x "$SCRIPT_TO_RUN"
 ```
 
-## Write Submission Script
+## Write submission script
 
 ```{bash}
 cat > "$SCHEDULER_SCRIPT" <<EOF
@@ -182,16 +182,28 @@ EOF
 chmod +x "$SCHEDULER_SCRIPT"
 ```
 
-## Submit Job
+## Submit job
 'qsub' is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.
 
 ```{bash}
 qsub "$SCHEDULER_SCRIPT"
 ```
 
-# Optional: Check Job Status
+# Optional: check job status
 You can check the status of your submitted job using the `qstat` command followed by your username or job ID. This will show you whether your job is queued, running, or completed. For example:
 ```{bash}
 qstat -u USERNAME
 ```
 Replace `USERNAME` with your actual username to see all your jobs, or use the specific job ID to check the status of a particular job.
+
+# Quit the SSH session
+After submitting your job, you can exit the SSH session on the login node. Your job will continue to run on the compute nodes even after you disconnect. You can reconnect later to check the status of your job or to retrieve the output files.
+```{bash}
+exit
+```
+
+# Copy output files back to local
+Once your job has completed, you can use `scp` to copy the output files from the HPC cluster back to your local machine. For example:
+```{bash}
+scp gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/cropped.tif Data/
+```

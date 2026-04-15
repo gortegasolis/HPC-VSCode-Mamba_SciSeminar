@@ -187,11 +187,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#note" id="toc-note" class="nav-link active" data-scroll-target="#note"><span class="header-section-number">4</span> Note</a></li>
   <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal"><span class="header-section-number">5</span> Goal</a></li>
   <li><a href="#connect-to-the-login-node-through-ssh" id="toc-connect-to-the-login-node-through-ssh" class="nav-link" data-scroll-target="#connect-to-the-login-node-through-ssh"><span class="header-section-number">6</span> Connect to the login node through SSH</a></li>
-  <li><a href="#request-an-interactive-session" id="toc-request-an-interactive-session" class="nav-link" data-scroll-target="#request-an-interactive-session"><span class="header-section-number">7</span> Request an Interactive Session</a></li>
-  <li><a href="#run-environment-setup-inside-the-interactive-session" id="toc-run-environment-setup-inside-the-interactive-session" class="nav-link" data-scroll-target="#run-environment-setup-inside-the-interactive-session"><span class="header-section-number">8</span> Run Environment Setup Inside the Interactive Session</a></li>
+  <li><a href="#request-an-interactive-session" id="toc-request-an-interactive-session" class="nav-link" data-scroll-target="#request-an-interactive-session"><span class="header-section-number">7</span> Request an interactive session</a></li>
+  <li><a href="#run-environment-setup-inside-the-interactive-session" id="toc-run-environment-setup-inside-the-interactive-session" class="nav-link" data-scroll-target="#run-environment-setup-inside-the-interactive-session"><span class="header-section-number">8</span> Run environment setup inside the interactive session</a></li>
   <li><a href="#activate-the-environment" id="toc-activate-the-environment" class="nav-link" data-scroll-target="#activate-the-environment"><span class="header-section-number">9</span> Activate the environment</a></li>
   <li><a href="#install-more-packages" id="toc-install-more-packages" class="nav-link" data-scroll-target="#install-more-packages"><span class="header-section-number">10</span> Install more packages</a></li>
   <li><a href="#deactivate-the-environment-when-you-are-done" id="toc-deactivate-the-environment-when-you-are-done" class="nav-link" data-scroll-target="#deactivate-the-environment-when-you-are-done"><span class="header-section-number">11</span> Deactivate the environment when you are done</a></li>
+  <li><a href="#exit-the-interactive-session" id="toc-exit-the-interactive-session" class="nav-link" data-scroll-target="#exit-the-interactive-session"><span class="header-section-number">12</span> Exit the interactive session</a></li>
   </ul>
 </nav>
     </div>
@@ -238,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
 <section id="request-an-interactive-session" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Request an Interactive Session</h1>
+<h1 data-number="7"><span class="header-section-number">7</span> Request an interactive session</h1>
 <p>Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-N</span> mamba_setup <span class="dt">\</span></span>
@@ -247,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-j</span> oe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="run-environment-setup-inside-the-interactive-session" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Run Environment Setup Inside the Interactive Session</h1>
+<h1 data-number="8"><span class="header-section-number">8</span> Run environment setup inside the interactive session</h1>
 <p>After PBS allocates the node and you see the interactive shell prompt, run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--prefix</span> /storage/brno2/home/gortega/mamba/envs/geostats <span class="at">-c</span> conda-forge <span class="st">"r-terra&gt;=1.8"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -269,6 +270,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="deactivate-the-environment-when-you-are-done" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Deactivate the environment when you are done</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exit-the-interactive-session" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Exit the interactive session</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

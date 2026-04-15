@@ -19,7 +19,7 @@ ssh USERNAME@skirit.metacentrum.cz
 ```
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
 
-# Request an Interactive Session
+# Request an interactive session
 
 Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.
 ```{bash}
@@ -30,7 +30,7 @@ qsub -I \
   -j oe
 ```
 
-# Run Environment Setup Inside the Interactive Session
+# Run environment setup inside the interactive session
 
 After PBS allocates the node and you see the interactive shell prompt, run:
 ```{bash}
@@ -63,4 +63,9 @@ Rscript -e "devtools::install_github('gortegasolis/geomattR', dependencies = FAL
 # Deactivate the environment when you are done
 ```{bash}
 mamba deactivate
+```
+
+# Exit the interactive session
+```{bash}
+exit
 ```
