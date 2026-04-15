@@ -25,7 +25,7 @@ The official recommendation is to run the VS Code server on a **computing node**
 
 On your workstation:
 
-```{bash}
+```bash
 ssh-keygen -f ~/.ssh/metacentrum_vscode
 ```
 
@@ -54,13 +54,13 @@ This tells VS Code to use your selected port and key when connecting to compute 
 
 First request an interactive job from a frontend:
 
-```{bash}
+```bash
 qsub -I -N vscode_dev -l select=1:ncpus=4:mem=16gb -l walltime=04:00:00
 ```
 
 After the shell opens on the compute node, run:
 
-```{bash}
+```bash
 mkdir -p "$SCRATCHDIR/.ssh"
 chmod 700 "$SCRATCHDIR/.ssh"
 rm -f "$SCRATCHDIR/.ssh/server_key" "$SCRATCHDIR/.ssh/server_key.pub"
@@ -72,14 +72,14 @@ chmod 600 "$SCRATCHDIR/.ssh/authorized_keys"
 
 Now append your **local public key** (from `~/.ssh/metacentrum_vscode.pub`) into `authorized_keys` on the compute node:
 
-```{bash}
+```bash
 cat >> "$SCRATCHDIR/.ssh/authorized_keys"
 # paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D
 ```
 
 Choose/check port and start SSH daemon:
 
-```{bash}
+```bash
 PORT=26759
 netstat -tan | grep -q "0.0.0.0:$PORT " && { echo "Port $PORT is busy"; exit 1; }
 
@@ -105,7 +105,7 @@ Because of your SSH config, VS Code will use port `26759` and key `~/.ssh/metace
 
 ## 5. Validate the connection in VS Code terminal
 
-```{bash}
+```bash
 hostname
 whoami
 pwd

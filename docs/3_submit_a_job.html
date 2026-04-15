@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -210,36 +245,36 @@ ul.task-list li input[type="checkbox"] {
 <section id="connect-to-the-login-node-through-ssh" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Connect to the login node through SSH</h1>
 <p>Open a terminal on your workstation and connect to the HPC cluster’s login node using SSH. For example:</p>
-<pre class="{bash}"><code>ssh USERNAME@skirit.metacentrum.cz</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
 <section id="test-your-mamba-environment" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Test your Mamba Environment</h1>
 <p>A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn’t offer you the right software (or versions) your script requires.</p>
-<pre class="{bash}"><code>module add mambaforge
-mamba activate "$MAMBA_ENV"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate <span class="st">"</span><span class="va">$MAMBA_ENV</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check if the software you need is available in the Mamba environment. For example, if you need R you can run:</p>
-<pre class="{bash}"><code>which R
-which Rscript</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> R</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> Rscript</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Both lines should point to an R or Rscript executable inside your Mamba environment.</p>
 <p>Now create your working directory if it doesn’t exist and move to it:</p>
-<pre class="{bash}"><code>mkdir -p "$WORK_DIR"
-cd "$WORK_DIR"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$WORK_DIR</span><span class="st">"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"</span><span class="va">$WORK_DIR</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Deactivate the Mamba environment and exit the login node momentarily to copy the working data to the compute node in the next section.:</p>
-<pre class="{bash}"><code>mamba deactivate
-exit</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="copy-data-to-the-hpc-cluster" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Copy data to the HPC cluster</h1>
 <p>Use <code>scp</code> to copy your dataset. For example:</p>
-<pre class="{bash}"><code>scp Data/COP90.tif /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar
-
-scp Data/South.gpkg /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> Data/COP90.tif /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> Data/South.gpkg /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="connect-to-the-login-node-again-through-ssh" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Connect to the login node again through SSH</h1>
 <p>Repeat the previous SSH command to connect to the login node again:</p>
-<pre class="{bash}"><code>ssh USERNAME@skirit.metacentrum.cz</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
 <section id="scheduler-settings" class="level1" data-number="11">
@@ -260,105 +295,105 @@ scp Data/South.gpkg /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar</cod
 <section id="settings-to-modify-before-launching-your-hpc-job" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="settings-to-modify-before-launching-your-hpc-job"><span class="header-section-number">11.2</span> Settings to modify before launching your HPC job</h2>
 <p>Modify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.</p>
-<pre class="{bash}"><code># Write a name for your job.
-JOB_NAME="demo_job"
-
-# Number of CPU cores requested for the job.
-NCPUS=4
-
-# Total memory requested for the job.
-MEM="8gb"
-
-# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.
-WALLTIME="01:00:00"
-
-# Name of the script that will contain the job commands.
-SCRIPT_TO_RUN="run_job.sh"
-
-# Name of the submission script passed to the HPC scheduler.
-SCHEDULER_SCRIPT="submit_job.pbs"
-
-# Name of the Mamba environment used by the job.
-MAMBA_ENV="/storage/brno2/home/gortega/mamba/envs/geostats"
-
-# Working directory where scripts are created and the job is launched.
-WORK_DIR="/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a name for your job.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">JOB_NAME</span><span class="op">=</span><span class="st">"demo_job"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of CPU cores requested for the job.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">NCPUS</span><span class="op">=</span>4</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Total memory requested for the job.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">MEM</span><span class="op">=</span><span class="st">"8gb"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="va">WALLTIME</span><span class="op">=</span><span class="st">"01:00:00"</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Name of the script that will contain the job commands.</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="va">SCRIPT_TO_RUN</span><span class="op">=</span><span class="st">"run_job.sh"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Name of the submission script passed to the HPC scheduler.</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="va">SCHEDULER_SCRIPT</span><span class="op">=</span><span class="st">"submit_job.pbs"</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Name of the Mamba environment used by the job.</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="va">MAMBA_ENV</span><span class="op">=</span><span class="st">"/storage/brno2/home/gortega/mamba/envs/geostats"</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory where scripts are created and the job is launched.</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="va">WORK_DIR</span><span class="op">=</span><span class="st">"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="write-the-bash-script-to-run-your-job" class="level1" data-number="12">
 <h1 data-number="12"><span class="header-section-number">12</span> Write the bash script to run your job</h1>
 <p>This section assumes you already tested your script and know it works. Here we just write the script to a file, but you can also create it with a text editor and copy-paste the content. The important thing is that the script contains all the commands needed to run your job, including loading packages/libraries, accessing datasets, and saving outputs.</p>
-<pre class="{bash}"><code>cat &gt; "$SCRIPT_TO_RUN" &lt;&lt;EOF
-#!/bin/bash
-
-set -euo pipefail
-
-module add mambaforge
-mamba activate "$MAMBA_ENV"
-
-###########################################################################
-# Example of R commands
-###########################################################################
-
-nohup Rscript - &lt;&lt;'RSCRIPT'
-
-###########################################################################
-# PASTE YOUR R CODE BELOW THIS LINE.
-###########################################################################
-
-
-
-library(terra)
-
-r &lt;- rast("COP90.tif")
-v &lt;- vect("South.gpkg")
-
-mean_val &lt;- global(r, "mean", na.rm = TRUE)
-print(mean_val)
-
-cropped &lt;- crop(r, v)
-writeRaster(cropped, "cropped.tif")
-
-###########################################################################
-# DO NOT MODIFY BELOW THIS LINE.
-###########################################################################
-
-RSCRIPT
-
-EOF</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$SCRIPT_TO_RUN</span><span class="st">"</span> <span class="op">&lt;&lt;EOF</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">#!/bin/bash</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">set -euo pipefail</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">module add mambaforge</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">mamba activate "</span><span class="va">$MAMBA_ENV</span><span class="st">"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">###########################################################################</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="st"># Example of R commands</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="st">###########################################################################</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="st">nohup Rscript - &lt;&lt;'RSCRIPT'</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">###########################################################################</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st"># PASTE YOUR R CODE BELOW THIS LINE.</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">###########################################################################</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="st">library(terra)</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="st">r &lt;- rast("COP90.tif")</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="st">v &lt;- vect("South.gpkg")</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="st">mean_val &lt;- global(r, "mean", na.rm = TRUE)</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="st">print(mean_val)</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="st">cropped &lt;- crop(r, v)</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="st">writeRaster(cropped, "cropped.tif")</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="st">###########################################################################</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="st"># DO NOT MODIFY BELOW THIS LINE.</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="st">###########################################################################</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="st">RSCRIPT</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="job-submission" class="level1" data-number="13">
 <h1 data-number="13"><span class="header-section-number">13</span> Job submission</h1>
 <p><em>IMPORTANT: Do not modify the sections below unless you know what you are doing!!</em> The following code cells should run as is because they take arguments from the settings section above. If you modify them, make sure to understand what they do and how they work together to submit your job to the HPC cluster.</p>
 <section id="give-execution-permission-to-your-job-script" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="give-execution-permission-to-your-job-script"><span class="header-section-number">13.1</span> Give execution permission to your job script</h2>
-<pre class="{bash}"><code>chmod +x "$SCRIPT_TO_RUN"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x <span class="st">"</span><span class="va">$SCRIPT_TO_RUN</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="write-submission-script" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="write-submission-script"><span class="header-section-number">13.2</span> Write Submission Script</h2>
-<pre class="{bash}"><code>cat &gt; "$SCHEDULER_SCRIPT" &lt;&lt;EOF
-#!/bin/bash
-#PBS -N $JOB_NAME
-#PBS -l select=1:ncpus=$NCPUS:mem=$MEM
-#PBS -l walltime=$WALLTIME
-#PBS -j oe
-
-cd "\$PBS_O_WORKDIR"
-bash "$SCRIPT_TO_RUN"
-EOF
-
-chmod +x "$SCHEDULER_SCRIPT"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$SCHEDULER_SCRIPT</span><span class="st">"</span> <span class="op">&lt;&lt;EOF</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">#!/bin/bash</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">#PBS -N </span><span class="va">$JOB_NAME</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">#PBS -l select=1:ncpus=</span><span class="va">$NCPUS</span><span class="st">:mem=</span><span class="va">$MEM</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">#PBS -l walltime=</span><span class="va">$WALLTIME</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">#PBS -j oe</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">cd "</span><span class="dt">\$</span><span class="st">PBS_O_WORKDIR"</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">bash "</span><span class="va">$SCRIPT_TO_RUN</span><span class="st">"</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x <span class="st">"</span><span class="va">$SCHEDULER_SCRIPT</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="submit-job" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="submit-job"><span class="header-section-number">13.3</span> Submit Job</h2>
 <p>‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.</p>
-<pre class="{bash}"><code>qsub "$SCHEDULER_SCRIPT"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="st">"</span><span class="va">$SCHEDULER_SCRIPT</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="optional-check-job-status" class="level1" data-number="14">
 <h1 data-number="14"><span class="header-section-number">14</span> Optional: Check Job Status</h1>
 <p>You can check the status of your submitted job using the <code>qstat</code> command followed by your username or job ID. This will show you whether your job is queued, running, or completed. For example:</p>
-<pre class="{bash}"><code>qstat -u USERNAME</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qstat</span> <span class="at">-u</span> USERNAME</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Replace <code>USERNAME</code> with your actual username to see all your jobs, or use the specific job ID to check the status of a particular job.</p>
 
 

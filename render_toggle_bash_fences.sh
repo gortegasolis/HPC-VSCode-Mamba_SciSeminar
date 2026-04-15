@@ -43,10 +43,10 @@ done
 # Always restore from backups, even if quarto render fails or script is interrupted.
 trap restore_from_backups EXIT
 
-# Replace ```{bash} with ```{bash} in the originals.
+# Replace ```{bash} with ```bash in the originals.
 for file in "${CHAPTERS[@]}"; do
   [[ -f "$file" ]] || continue
-  sed -E -i 's/^([[:space:]]*)```[[:space:]]*\{bash\}[[:space:]]*$/\1```{bash}/' "$file"
+  sed -E -i 's/^```[[:space:]]*\{bash\}[[:space:]]*$/```bash/' "$file"
 done
 
 quarto render "$@"

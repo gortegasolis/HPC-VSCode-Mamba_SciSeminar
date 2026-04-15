@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -199,41 +234,41 @@ ul.task-list li input[type="checkbox"] {
 <section id="connect-to-the-login-node-through-ssh" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Connect to the login node through SSH</h1>
 <p>Open a terminal on your workstation and connect to the HPC cluster’s login node using SSH. For example:</p>
-<pre class="{bash}"><code>ssh USERNAME@skirit.metacentrum.cz</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
 <section id="request-an-interactive-session" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Request an Interactive Session</h1>
 <p>Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.</p>
-<pre class="{bash}"><code>qsub -I \
-  -N mamba_setup \
-  -l select=1:ncpus=1:mem=16gb \
-  -l walltime=02:00:00 \
-  -j oe</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-N</span> mamba_setup <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> select=1:ncpus=1:mem=16gb <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> walltime=02:00:00 <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-j</span> oe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="run-environment-setup-inside-the-interactive-session" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Run Environment Setup Inside the Interactive Session</h1>
 <p>After PBS allocates the node and you see the interactive shell prompt, run:</p>
-<pre class="{bash}"><code>module add mambaforge
-mamba create --prefix /storage/brno2/home/gortega/mamba/envs/geostats -c conda-forge "r-terra&gt;=1.8"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--prefix</span> /storage/brno2/home/gortega/mamba/envs/geostats <span class="at">-c</span> conda-forge <span class="st">"r-terra&gt;=1.8"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The code above will install R as a “side effect” of installing version 1.8 or higher of the <code>terra</code> package. You can replace <code>r-terra</code> with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running <code>mamba create -n SOME_NAME</code> and then install packages one by one or in groups as needed. The option <code>-c conda-forge</code> tells Mamba to look for packages in the conda-forge channel, which is a community-maintained repository of packages. You can specify other channels if you need software that is not available in conda-forge.</p>
 </section>
 <section id="activate-the-environment" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Activate the environment</h1>
 <p>Here we will activate the environment to check that it works.</p>
-<pre class="{bash}"><code>mamba activate /storage/brno2/home/gortega/mamba/envs/geostats</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate /storage/brno2/home/gortega/mamba/envs/geostats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="install-more-packages" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Install more packages</h1>
 <p>You can install more packages in the same environment. For python , just replace the package name after <em>conda-forge</em> with the one you want to install. For R packages you have to write r-PACKAGE_NAME.</p>
-<pre class="{bash}"><code>mamba install -c conda-forge geopandas r-sf</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> conda-forge geopandas r-sf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The most recommended way to install packages inside your environment is to use <code>mamba install...</code> because it will automatically resolve dependencies and propose a working configuration for all the packages in your environment. However, you can still install packages from other sources (e.g., using <code>pip</code> for Python or <code>install.packages()</code> for R) if you prefer, but be aware that this may lead to dependency conflicts or issues with reproducibility.</p>
 <p>Example of installing an R package from GitHub using <code>remotes</code>:</p>
-<pre class="{bash}"><code>Rscript -e "devtools::install_github('gortegasolis/geomattR', dependencies = FALSE, upgrade = 'never', force = TRUE)"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">"devtools::install_github('gortegasolis/geomattR', dependencies = FALSE, upgrade = 'never', force = TRUE)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="deactivate-the-environment-when-you-are-done" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Deactivate the environment when you are done</h1>
-<pre class="{bash}"><code>mamba deactivate</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -213,7 +248,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="create-a-local-ssh-key-for-this-workflow" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="create-a-local-ssh-key-for-this-workflow"><span class="header-section-number">8.2</span> 1. Create a local SSH key for this workflow</h2>
 <p>On your workstation:</p>
-<pre class="{bash}"><code>ssh-keygen -f ~/.ssh/metacentrum_vscode</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-f</span> ~/.ssh/metacentrum_vscode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This creates:</p>
 <ul>
 <li>private key: <code>~/.ssh/metacentrum_vscode</code></li>
@@ -235,29 +270,29 @@ Host *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *
 <section id="start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="start-an-interactive-job-and-launch-ssh-server-on-the-compute-node"><span class="header-section-number">8.4</span> 3. Start an interactive job and launch SSH server on the compute node</h2>
 <p>First request an interactive job from a frontend:</p>
-<pre class="{bash}"><code>qsub -I -N vscode_dev -l select=1:ncpus=4:mem=16gb -l walltime=04:00:00</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="at">-N</span> vscode_dev <span class="at">-l</span> select=1:ncpus=4:mem=16gb <span class="at">-l</span> walltime=04:00:00</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>After the shell opens on the compute node, run:</p>
-<pre class="{bash}"><code>mkdir -p "$SCRATCHDIR/.ssh"
-chmod 700 "$SCRATCHDIR/.ssh"
-rm -f "$SCRATCHDIR/.ssh/server_key" "$SCRATCHDIR/.ssh/server_key.pub"
-ssh-keygen -f "$SCRATCHDIR/.ssh/server_key" -N "" -C "VSCode" -q -t ed25519
-
-touch "$SCRATCHDIR/.ssh/authorized_keys"
-chmod 600 "$SCRATCHDIR/.ssh/authorized_keys"</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 700 <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/server_key"</span> <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/server_key.pub"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-f</span> <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/server_key"</span> <span class="at">-N</span> <span class="st">""</span> <span class="at">-C</span> <span class="st">"VSCode"</span> <span class="at">-q</span> <span class="at">-t</span> ed25519</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/authorized_keys"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/authorized_keys"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now append your <strong>local public key</strong> (from <code>~/.ssh/metacentrum_vscode.pub</code>) into <code>authorized_keys</code> on the compute node:</p>
-<pre class="{bash}"><code>cat &gt;&gt; "$SCRATCHDIR/.ssh/authorized_keys"
-# paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;&gt;</span> <span class="st">"</span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/authorized_keys"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Choose/check port and start SSH daemon:</p>
-<pre class="{bash}"><code>PORT=26759
-netstat -tan | grep -q "0.0.0.0:$PORT " &amp;&amp; { echo "Port $PORT is busy"; exit 1; }
-
-/usr/sbin/sshd -D -p "$PORT" \
-  -o "HostKey $SCRATCHDIR/.ssh/server_key" \
-  -o "PermitRootLogin no" \
-  -o "PasswordAuthentication no" \
-  -o "ChallengeResponseAuthentication no" &amp;
-
-hostname</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">PORT</span><span class="op">=</span>26759</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">netstat</span> <span class="at">-tan</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-q</span> <span class="st">"0.0.0.0:</span><span class="va">$PORT</span><span class="st"> "</span> <span class="kw">&amp;&amp;</span> <span class="kw">{</span> <span class="bu">echo</span> <span class="st">"Port </span><span class="va">$PORT</span><span class="st"> is busy"</span><span class="kw">;</span> <span class="bu">exit</span> 1<span class="kw">;</span> <span class="kw">}</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">/usr/sbin/sshd</span> <span class="at">-D</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$PORT</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> <span class="st">"HostKey </span><span class="va">$SCRATCHDIR</span><span class="st">/.ssh/server_key"</span> <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> <span class="st">"PermitRootLogin no"</span> <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> <span class="st">"PasswordAuthentication no"</span> <span class="dt">\</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> <span class="st">"ChallengeResponseAuthentication no"</span> <span class="kw">&amp;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Keep this job running. The printed hostname is the compute node you will connect to from VS Code.</p>
 </section>
 <section id="connect-from-vs-code-to-the-compute-node" class="level2" data-number="8.5">
@@ -271,9 +306,9 @@ hostname</code></pre>
 </section>
 <section id="validate-the-connection-in-vs-code-terminal" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="validate-the-connection-in-vs-code-terminal"><span class="header-section-number">8.6</span> 5. Validate the connection in VS Code terminal</h2>
-<pre class="{bash}"><code>hostname
-whoami
-pwd</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You should see your compute-node hostname, your username, and your working directory.</p>
 </section>
 </section>
