@@ -63,8 +63,8 @@
     "objectID": "3_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
     "href": "3_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
     "title": "4  Submit your job using the scheduler",
-    "section": "8.1 General rule-of-thumb strategy for requesting HPC resources",
-    "text": "8.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
+    "section": "11.1 General rule-of-thumb strategy for requesting HPC resources",
+    "text": "11.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
@@ -73,8 +73,8 @@
     "objectID": "3_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
     "href": "3_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
     "title": "4  Submit your job using the scheduler",
-    "section": "8.2 Settings to modify before launching your HPC job",
-    "text": "8.2 Settings to modify before launching your HPC job\nModify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"/storage/brno2/home/gortega/mamba/envs/geostats\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar\"",
+    "section": "11.2 Settings to modify before launching your HPC job",
+    "text": "11.2 Settings to modify before launching your HPC job\nModify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"/storage/brno2/home/gortega/mamba/envs/geostats\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
@@ -83,8 +83,8 @@
     "objectID": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
     "href": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
     "title": "4  Submit your job using the scheduler",
-    "section": "12.1 Give execution permission to your job script",
-    "text": "12.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
+    "section": "13.1 Give execution permission to your job script",
+    "text": "13.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
@@ -93,8 +93,8 @@
     "objectID": "3_submit_a_job.html#write-submission-script",
     "href": "3_submit_a_job.html#write-submission-script",
     "title": "4  Submit your job using the scheduler",
-    "section": "12.2 Write Submission Script",
-    "text": "12.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
+    "section": "13.2 Write Submission Script",
+    "text": "13.2 Write Submission Script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
@@ -103,8 +103,8 @@
     "objectID": "3_submit_a_job.html#submit-job",
     "href": "3_submit_a_job.html#submit-job",
     "title": "4  Submit your job using the scheduler",
-    "section": "12.3 Submit Job",
-    "text": "12.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
+    "section": "13.3 Submit Job",
+    "text": "13.3 Submit Job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]

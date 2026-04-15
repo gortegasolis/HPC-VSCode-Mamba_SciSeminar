@@ -10,44 +10,49 @@ if [[ ! -f "_quarto.yml" ]]; then
   exit 1
 fi
 
-mapfile -t CHAPTERS < <(
-  awk '
-    /^[[:space:]]*chapters:[[:space:]]*$/ { in_chapters=1; next }
-    in_chapters && /^[[:space:]]*-[[:space:]]+.*\.qmd[[:space:]]*$/ {
-      line=$0
-      sub(/^[[:space:]]*-[[:space:]]+/, "", line)
-      gsub(/[[:space:]]+$/, "", line)
-      print line
-      next
-    }
-    in_chapters && !/^[[:space:]]*-/ { in_chapters=0 }
-  ' _quarto.yml
-)
+# All .qmd files directly in the root folder.
+mapfile -t CHAPTERS < <(printf '%s\n' *.qmd)
 
 if [[ ${#CHAPTERS[@]} -eq 0 ]]; then
-  echo "Error: no chapter .qmd files found under 'chapters:' in _quarto.yml" >&2
+  echo "Error: no .qmd files found in $SCRIPT_DIR" >&2
   exit 1
 fi
 
-restore_fences() {
+BACKUP_DIR="docs/site_libs"
+mkdir -p "$BACKUP_DIR"
+
+restore_from_backups() {
   for file in "${CHAPTERS[@]}"; do
-    [[ -f "$file" ]] || continue
-    sed -E -i 's/^([[:space:]]*)```[[:space:]]*bash[[:space:]]*$/\1```{bash}/' "$file"
+    backup="$BACKUP_DIR/$(basename "$file")"
+    [[ -f "$backup" ]] || continue
+    cp "$backup" "$file"
+    rm "$backup"
   done
 }
 
-# Always restore fences, even if quarto render fails or script is interrupted.
-trap restore_fences EXIT
+# Restore any backups left over from a previously interrupted run
+# so fences are always in the correct ```{bash} state before we start.
+restore_from_backups
 
+# Copy originals to backup dir before modifying them.
 for file in "${CHAPTERS[@]}"; do
   [[ -f "$file" ]] || continue
-  sed -E -i 's/^([[:space:]]*)```[[:space:]]*\{bash\}[[:space:]]*$/\1```bash/' "$file"
+  cp "$file" "$BACKUP_DIR/$(basename "$file")"
+done
+
+# Always restore from backups, even if quarto render fails or script is interrupted.
+trap restore_from_backups EXIT
+
+# Replace ```{bash} with ```{bash} in the originals.
+for file in "${CHAPTERS[@]}"; do
+  [[ -f "$file" ]] || continue
+  sed -E -i 's/^([[:space:]]*)```[[:space:]]*\{bash\}[[:space:]]*$/\1```{bash}/' "$file"
 done
 
 quarto render "$@"
 
-# Restore now and disable the EXIT trap to avoid running twice.
-restore_fences
+# Restore from backups and disable the EXIT trap to avoid running twice.
+restore_from_backups
 trap - EXIT
 
 echo "Render complete. Bash fences were restored to \`\`\`{bash}."
