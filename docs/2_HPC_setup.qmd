@@ -5,6 +5,9 @@ execute:
   eval: false
 ---
 
+# Note
+*This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.* If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.
+
 # Goal
 
 Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.
@@ -32,14 +35,16 @@ qsub -I \
 After PBS allocates the node and you see the interactive shell prompt, run:
 ```bash
 module add mambaforge
-mamba create -n geostatistics2 -c conda-forge "r-terra>=1.8"
+mamba create --prefix /storage/brno2/home/gortega/mamba/envs/geostats -c conda-forge "r-terra>=1.8"
 ```
 
-The code above will install R as a "side effect" of installing version 1.8 or higher of the `terra` package. You can replace `r-terra` with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running `mamba create -n SOME_NAME` and then install packages one by one or in groups as needed.
+The code above will install R as a "side effect" of installing version 1.8 or higher of the `terra` package. You can replace `r-terra` with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running `mamba create -n SOME_NAME` and then install packages one by one or in groups as needed. The option `-c conda-forge` tells Mamba to look for packages in the conda-forge channel, which is a community-maintained repository of packages. You can specify other channels if you need software that is not available in conda-forge.
 
 # Activate the environment
+
+Here we will activate the environment to check that it works.
 ```bash
-mamba activate geostatistics2
+mamba activate /storage/brno2/home/gortega/mamba/envs/geostats
 ```
 
 # Install more packages

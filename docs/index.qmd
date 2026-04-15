@@ -3,9 +3,11 @@ title: "Welcome"
 author: "Gabriel Ortega-Solís"
 ---
 
-This is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.
+This is a simple *and a bit unconventional* approach for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.
 
-For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way **I like to work**.
+The chapters are tailored to be executed in **VSCode** and *probably work also in Positron or Antigravity*. If you are not using one of these IDEs, you can still follow the instructions by copying and pasting the code snippets into a terminal. The main idea is to show how to set up your HPC environment and submit jobs in a way that is reproducible and enforce documented workflows.
+
+For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution or HPC services provider. This guide is a starting point that shows just the way **I like to work**.
 
 [Open Web Presentation](presentation.html){.btn .btn-primary target="_blank"}
 

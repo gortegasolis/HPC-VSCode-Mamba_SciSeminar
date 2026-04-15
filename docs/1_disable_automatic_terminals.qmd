@@ -11,17 +11,17 @@ The goal is simple: your commands should always run in the terminal that is alre
 
 # Disable Automatic Terminal Creation in VS Code
 
-VS Code may create extra terminals because of restored sessions, Python auto-activation, or debug/task behavior. Disable these triggers so you can keep working in one terminal.
+VS Code may create extra terminals the first time you click the a code cell in a working session. Disable these triggers so you can control which terminal your commands run in.
 
 ## Open your settings JSON
 
 Use **Ctrl+Shift+P** and run:
 
-- `Preferences: Open User Settings (JSON)`
+-   `Preferences: Open User Settings (JSON)`
 
 Then add (or merge) the following keys:
 
-```json
+``` json
 {
   "terminal.integrated.hideOnStartup": "always",
   "terminal.integrated.enablePersistentSessions": false,
@@ -31,4 +31,4 @@ Then add (or merge) the following keys:
 }
 ```
 
-With these settings, VS Code is less likely to open new terminals by itself. You can still open new terminals by clicking Terminal> New Terminal on the menu.
+With these settings, VS Code is less likely to open new terminals by itself. You can still open new terminals by clicking **Terminal\> New Terminal** on the menu.

@@ -181,13 +181,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#goal" id="toc-goal" class="nav-link active" data-scroll-target="#goal"><span class="header-section-number">4</span> Goal</a></li>
-  <li><a href="#connect-to-the-login-node-through-ssh" id="toc-connect-to-the-login-node-through-ssh" class="nav-link" data-scroll-target="#connect-to-the-login-node-through-ssh"><span class="header-section-number">5</span> Connect to the login node through SSH</a></li>
-  <li><a href="#request-an-interactive-session" id="toc-request-an-interactive-session" class="nav-link" data-scroll-target="#request-an-interactive-session"><span class="header-section-number">6</span> Request an Interactive Session</a></li>
-  <li><a href="#run-environment-setup-inside-the-interactive-session" id="toc-run-environment-setup-inside-the-interactive-session" class="nav-link" data-scroll-target="#run-environment-setup-inside-the-interactive-session"><span class="header-section-number">7</span> Run Environment Setup Inside the Interactive Session</a></li>
-  <li><a href="#activate-the-environment" id="toc-activate-the-environment" class="nav-link" data-scroll-target="#activate-the-environment"><span class="header-section-number">8</span> Activate the environment</a></li>
-  <li><a href="#install-more-packages" id="toc-install-more-packages" class="nav-link" data-scroll-target="#install-more-packages"><span class="header-section-number">9</span> Install more packages</a></li>
-  <li><a href="#deactivate-the-environment-when-you-are-done" id="toc-deactivate-the-environment-when-you-are-done" class="nav-link" data-scroll-target="#deactivate-the-environment-when-you-are-done"><span class="header-section-number">10</span> Deactivate the environment when you are done</a></li>
+  <li><a href="#note" id="toc-note" class="nav-link active" data-scroll-target="#note"><span class="header-section-number">4</span> Note</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal"><span class="header-section-number">5</span> Goal</a></li>
+  <li><a href="#connect-to-the-login-node-through-ssh" id="toc-connect-to-the-login-node-through-ssh" class="nav-link" data-scroll-target="#connect-to-the-login-node-through-ssh"><span class="header-section-number">6</span> Connect to the login node through SSH</a></li>
+  <li><a href="#request-an-interactive-session" id="toc-request-an-interactive-session" class="nav-link" data-scroll-target="#request-an-interactive-session"><span class="header-section-number">7</span> Request an Interactive Session</a></li>
+  <li><a href="#run-environment-setup-inside-the-interactive-session" id="toc-run-environment-setup-inside-the-interactive-session" class="nav-link" data-scroll-target="#run-environment-setup-inside-the-interactive-session"><span class="header-section-number">8</span> Run Environment Setup Inside the Interactive Session</a></li>
+  <li><a href="#activate-the-environment" id="toc-activate-the-environment" class="nav-link" data-scroll-target="#activate-the-environment"><span class="header-section-number">9</span> Activate the environment</a></li>
+  <li><a href="#install-more-packages" id="toc-install-more-packages" class="nav-link" data-scroll-target="#install-more-packages"><span class="header-section-number">10</span> Install more packages</a></li>
+  <li><a href="#deactivate-the-environment-when-you-are-done" id="toc-deactivate-the-environment-when-you-are-done" class="nav-link" data-scroll-target="#deactivate-the-environment-when-you-are-done"><span class="header-section-number">11</span> Deactivate the environment when you are done</a></li>
   </ul>
 </nav>
     </div>
@@ -219,18 +220,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="goal" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Goal</h1>
+<section id="note" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Note</h1>
+<p><em>This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.</em> If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.</p>
+</section>
+<section id="goal" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Goal</h1>
 <p>Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.</p>
 </section>
-<section id="connect-to-the-login-node-through-ssh" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Connect to the login node through SSH</h1>
+<section id="connect-to-the-login-node-through-ssh" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Connect to the login node through SSH</h1>
 <p>Open a terminal on your workstation and connect to the HPC cluster’s login node using SSH. For example:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
-<section id="request-an-interactive-session" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Request an Interactive Session</h1>
+<section id="request-an-interactive-session" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Request an Interactive Session</h1>
 <p>Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-N</span> mamba_setup <span class="dt">\</span></span>
@@ -238,27 +243,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-l</span> walltime=02:00:00 <span class="dt">\</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-j</span> oe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="run-environment-setup-inside-the-interactive-session" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Run Environment Setup Inside the Interactive Session</h1>
+<section id="run-environment-setup-inside-the-interactive-session" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Run Environment Setup Inside the Interactive Session</h1>
 <p>After PBS allocates the node and you see the interactive shell prompt, run:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> geostatistics2 <span class="at">-c</span> conda-forge <span class="st">"r-terra&gt;=1.8"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The code above will install R as a “side effect” of installing version 1.8 or higher of the <code>terra</code> package. You can replace <code>r-terra</code> with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running <code>mamba create -n SOME_NAME</code> and then install packages one by one or in groups as needed.</p>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--prefix</span> /storage/brno2/home/gortega/mamba/envs/geostats <span class="at">-c</span> conda-forge <span class="st">"r-terra&gt;=1.8"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The code above will install R as a “side effect” of installing version 1.8 or higher of the <code>terra</code> package. You can replace <code>r-terra</code> with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running <code>mamba create -n SOME_NAME</code> and then install packages one by one or in groups as needed. The option <code>-c conda-forge</code> tells Mamba to look for packages in the conda-forge channel, which is a community-maintained repository of packages. You can specify other channels if you need software that is not available in conda-forge.</p>
 </section>
-<section id="activate-the-environment" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Activate the environment</h1>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate geostatistics2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="activate-the-environment" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Activate the environment</h1>
+<p>Here we will activate the environment to check that it works.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate /storage/brno2/home/gortega/mamba/envs/geostats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="install-more-packages" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Install more packages</h1>
+<section id="install-more-packages" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Install more packages</h1>
 <p>You can install more packages in the same environment. For python , just replace the package name after <em>conda-forge</em> with the one you want to install. For R packages you have to write r-PACKAGE_NAME.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> conda-forge geopandas r-sf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The most recommended way to install packages inside your environment is to use <code>mamba install...</code> because it will automatically resolve dependencies and propose a working configuration for all the packages in your environment. However, you can still install packages from other sources (e.g., using <code>pip</code> for Python or <code>install.packages()</code> for R) if you prefer, but be aware that this may lead to dependency conflicts or issues with reproducibility.</p>
 <p>Example of installing an R package from GitHub using <code>remotes</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">"devtools::install_github('gortegasolis/geomattR', dependencies = FALSE, upgrade = 'never', force = TRUE)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="deactivate-the-environment-when-you-are-done" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Deactivate the environment when you are done</h1>
+<section id="deactivate-the-environment-when-you-are-done" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Deactivate the environment when you are done</h1>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 

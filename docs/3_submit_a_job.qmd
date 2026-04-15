@@ -4,6 +4,8 @@ author: "Gabriel Ortega-Solís"
 execute:
   eval: false
 ---
+# Note
+**This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you'll need **Ctrl+Shift+V** to paste in the terminal.
 
 # Goal
 
@@ -59,7 +61,7 @@ SCRIPT_TO_RUN="run_job.sh"
 SCHEDULER_SCRIPT="submit_job.pbs"
 
 # Name of the Mamba environment used by the job.
-MAMBA_ENV="geostatistics"
+MAMBA_ENV="/storage/brno2/home/gortega/mamba/envs/geostats"
 
 # Working directory where scripts are created and the job is launched.
 WORK_DIR="/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"
@@ -73,7 +75,7 @@ module add mambaforge
 mamba activate "$MAMBA_ENV"
 ```
 
-Check if the software you need is available in the Mamba environment. For example, if you need R and the 'terra' package, you can run:
+Check if the software you need is available in the Mamba environment. For example, if you need R you can run:
 ```bash
 which R
 which Rscript

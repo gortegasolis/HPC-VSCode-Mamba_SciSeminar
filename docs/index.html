@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriel Ortega-Solís">
-<meta name="dcterms.date" content="2026-04-14">
+<meta name="dcterms.date" content="2026-04-15">
 
 <title>Preparing and submitting a job to a HPC cluster</title>
 <style>
@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 14, 2026</p>
+      <p class="date">April 15, 2026</p>
     </div>
   </div>
   
@@ -185,8 +185,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a simple guide for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.</p>
-<p>For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution. This guide is a starting point that shows just the way <strong>I like to work</strong>.</p>
+<p>This is a simple <em>and a bit unconventional</em> approach for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.</p>
+<p>The chapters are tailored to be executed in <strong>VSCode</strong> and <em>probably work also in Positron or Antigravity</em>. If you are not using one of these IDEs, you can still follow the instructions by copying and pasting the code snippets into a terminal. The main idea is to show how to set up your HPC environment and submit jobs in a way that is reproducible and enforce documented workflows.</p>
+<p>For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution or HPC services provider. This guide is a starting point that shows just the way <strong>I like to work</strong>.</p>
 <p><a href="presentation.html" class="btn btn-primary" target="_blank">Open Web Presentation</a></p>
 <section id="contents" class="level2" data-number="0.1">
 <h2 data-number="0.1" class="anchored" data-anchor-id="contents"><span class="header-section-number">0.1</span> Contents</h2>

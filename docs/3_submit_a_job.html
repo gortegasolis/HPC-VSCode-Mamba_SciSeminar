@@ -181,22 +181,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#goal" id="toc-goal" class="nav-link active" data-scroll-target="#goal"><span class="header-section-number">5</span> Goal</a></li>
-  <li><a href="#connect-to-the-login-node-through-ssh" id="toc-connect-to-the-login-node-through-ssh" class="nav-link" data-scroll-target="#connect-to-the-login-node-through-ssh"><span class="header-section-number">6</span> Connect to the login node through SSH</a></li>
-  <li><a href="#settings" id="toc-settings" class="nav-link" data-scroll-target="#settings"><span class="header-section-number">7</span> Settings</a>
+  <li><a href="#note" id="toc-note" class="nav-link active" data-scroll-target="#note"><span class="header-section-number">5</span> Note</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal"><span class="header-section-number">6</span> Goal</a></li>
+  <li><a href="#connect-to-the-login-node-through-ssh" id="toc-connect-to-the-login-node-through-ssh" class="nav-link" data-scroll-target="#connect-to-the-login-node-through-ssh"><span class="header-section-number">7</span> Connect to the login node through SSH</a></li>
+  <li><a href="#settings" id="toc-settings" class="nav-link" data-scroll-target="#settings"><span class="header-section-number">8</span> Settings</a>
   <ul class="collapse">
-  <li><a href="#general-rule-of-thumb-strategy-for-requesting-hpc-resources" id="toc-general-rule-of-thumb-strategy-for-requesting-hpc-resources" class="nav-link" data-scroll-target="#general-rule-of-thumb-strategy-for-requesting-hpc-resources"><span class="header-section-number">7.1</span> General rule-of-thumb strategy for requesting HPC resources</a></li>
-  <li><a href="#settings-to-modify-before-launching-your-hpc-job" id="toc-settings-to-modify-before-launching-your-hpc-job" class="nav-link" data-scroll-target="#settings-to-modify-before-launching-your-hpc-job"><span class="header-section-number">7.2</span> Settings to modify before launching your HPC job</a></li>
+  <li><a href="#general-rule-of-thumb-strategy-for-requesting-hpc-resources" id="toc-general-rule-of-thumb-strategy-for-requesting-hpc-resources" class="nav-link" data-scroll-target="#general-rule-of-thumb-strategy-for-requesting-hpc-resources"><span class="header-section-number">8.1</span> General rule-of-thumb strategy for requesting HPC resources</a></li>
+  <li><a href="#settings-to-modify-before-launching-your-hpc-job" id="toc-settings-to-modify-before-launching-your-hpc-job" class="nav-link" data-scroll-target="#settings-to-modify-before-launching-your-hpc-job"><span class="header-section-number">8.2</span> Settings to modify before launching your HPC job</a></li>
   </ul></li>
-  <li><a href="#test-your-mamba-environment" id="toc-test-your-mamba-environment" class="nav-link" data-scroll-target="#test-your-mamba-environment"><span class="header-section-number">8</span> Test your Mamba Environment</a></li>
-  <li><a href="#write-the-bash-script-to-run-your-job" id="toc-write-the-bash-script-to-run-your-job" class="nav-link" data-scroll-target="#write-the-bash-script-to-run-your-job"><span class="header-section-number">9</span> Write the bash script to run your job</a></li>
-  <li><a href="#job-submission" id="toc-job-submission" class="nav-link" data-scroll-target="#job-submission"><span class="header-section-number">10</span> Job submission</a>
+  <li><a href="#test-your-mamba-environment" id="toc-test-your-mamba-environment" class="nav-link" data-scroll-target="#test-your-mamba-environment"><span class="header-section-number">9</span> Test your Mamba Environment</a></li>
+  <li><a href="#write-the-bash-script-to-run-your-job" id="toc-write-the-bash-script-to-run-your-job" class="nav-link" data-scroll-target="#write-the-bash-script-to-run-your-job"><span class="header-section-number">10</span> Write the bash script to run your job</a></li>
+  <li><a href="#job-submission" id="toc-job-submission" class="nav-link" data-scroll-target="#job-submission"><span class="header-section-number">11</span> Job submission</a>
   <ul class="collapse">
-  <li><a href="#give-execution-permission-to-your-job-script" id="toc-give-execution-permission-to-your-job-script" class="nav-link" data-scroll-target="#give-execution-permission-to-your-job-script"><span class="header-section-number">10.1</span> Give execution permission to your job script</a></li>
-  <li><a href="#write-submission-script" id="toc-write-submission-script" class="nav-link" data-scroll-target="#write-submission-script"><span class="header-section-number">10.2</span> Write Submission Script</a></li>
-  <li><a href="#submit-job" id="toc-submit-job" class="nav-link" data-scroll-target="#submit-job"><span class="header-section-number">10.3</span> Submit Job</a></li>
+  <li><a href="#give-execution-permission-to-your-job-script" id="toc-give-execution-permission-to-your-job-script" class="nav-link" data-scroll-target="#give-execution-permission-to-your-job-script"><span class="header-section-number">11.1</span> Give execution permission to your job script</a></li>
+  <li><a href="#write-submission-script" id="toc-write-submission-script" class="nav-link" data-scroll-target="#write-submission-script"><span class="header-section-number">11.2</span> Write Submission Script</a></li>
+  <li><a href="#submit-job" id="toc-submit-job" class="nav-link" data-scroll-target="#submit-job"><span class="header-section-number">11.3</span> Submit Job</a></li>
   </ul></li>
-  <li><a href="#optional-check-job-status" id="toc-optional-check-job-status" class="nav-link" data-scroll-target="#optional-check-job-status"><span class="header-section-number">11</span> Optional: Check Job Status</a></li>
+  <li><a href="#optional-check-job-status" id="toc-optional-check-job-status" class="nav-link" data-scroll-target="#optional-check-job-status"><span class="header-section-number">12</span> Optional: Check Job Status</a></li>
   </ul>
 </nav>
     </div>
@@ -228,21 +229,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="goal" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Goal</h1>
+<section id="note" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Note</h1>
+<p><strong>This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.</strong> If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need <strong>Ctrl+Shift+V</strong> to paste in the terminal.</p>
+</section>
+<section id="goal" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Goal</h1>
 <p>Prepare a scheduler script with suitable resources and submit a reproducible batch job with <code>qsub</code>.</p>
 </section>
-<section id="connect-to-the-login-node-through-ssh" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Connect to the login node through SSH</h1>
+<section id="connect-to-the-login-node-through-ssh" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Connect to the login node through SSH</h1>
 <p>Open a terminal on your workstation and connect to the HPC cluster’s login node using SSH. For example:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
-<section id="settings" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Settings</h1>
+<section id="settings" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Settings</h1>
 <p>In this section you can find the basic settings you should consider before launching your job. Modify them according to your requirements. There is a tradeoff to remember: if you request a lot of resources (e.g., many CPU cores, a lot of memory, or a long walltime), your job may take longer to start because it needs to wait for those resources to become available. On the other hand, if you request too few resources, your job may run out of memory or time and fail. So, it’s important to find a balance based on the expected needs of your job.</p>
-<section id="general-rule-of-thumb-strategy-for-requesting-hpc-resources" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="general-rule-of-thumb-strategy-for-requesting-hpc-resources"><span class="header-section-number">7.1</span> General rule-of-thumb strategy for requesting HPC resources</h2>
+<section id="general-rule-of-thumb-strategy-for-requesting-hpc-resources" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="general-rule-of-thumb-strategy-for-requesting-hpc-resources"><span class="header-section-number">8.1</span> General rule-of-thumb strategy for requesting HPC resources</h2>
 <p>Run a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).</p>
 <p>Measure:</p>
 <ul>
@@ -253,8 +258,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).</p>
 <p>For memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).</p>
 </section>
-<section id="settings-to-modify-before-launching-your-hpc-job" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="settings-to-modify-before-launching-your-hpc-job"><span class="header-section-number">7.2</span> Settings to modify before launching your HPC job</h2>
+<section id="settings-to-modify-before-launching-your-hpc-job" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="settings-to-modify-before-launching-your-hpc-job"><span class="header-section-number">8.2</span> Settings to modify before launching your HPC job</h2>
 <p>Modify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a name for your job.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">JOB_NAME</span><span class="op">=</span><span class="st">"demo_job"</span></span>
@@ -275,18 +280,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="va">SCHEDULER_SCRIPT</span><span class="op">=</span><span class="st">"submit_job.pbs"</span></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Name of the Mamba environment used by the job.</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="va">MAMBA_ENV</span><span class="op">=</span><span class="st">"geostatistics"</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="va">MAMBA_ENV</span><span class="op">=</span><span class="st">"/storage/brno2/home/gortega/mamba/envs/geostats"</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Working directory where scripts are created and the job is launched.</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="va">WORK_DIR</span><span class="op">=</span><span class="st">"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="test-your-mamba-environment" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Test your Mamba Environment</h1>
+<section id="test-your-mamba-environment" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Test your Mamba Environment</h1>
 <p>A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn’t offer you the right software (or versions) your script requires.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> add mambaforge</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate <span class="st">"</span><span class="va">$MAMBA_ENV</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Check if the software you need is available in the Mamba environment. For example, if you need R and the ‘terra’ package, you can run:</p>
+<p>Check if the software you need is available in the Mamba environment. For example, if you need R you can run:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> R</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> Rscript</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Both lines should point to an R or Rscript executable inside your Mamba environment.</p>
@@ -296,8 +301,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Deactivate the Mamba environment for now, as we will load it in the job script later:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="write-the-bash-script-to-run-your-job" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Write the bash script to run your job</h1>
+<section id="write-the-bash-script-to-run-your-job" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Write the bash script to run your job</h1>
 <p>This section assumes you already tested your script and know it works. Here we just write the script to a file, but you can also create it with a text editor and copy-paste the content. The important thing is that the script contains all the commands needed to run your job, including loading packages/libraries, accessing datasets, and saving outputs.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$SCRIPT_TO_RUN</span><span class="st">"</span> <span class="op">&lt;&lt;EOF</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="st">#!/bin/bash</span></span>
@@ -337,15 +342,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="job-submission" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Job submission</h1>
+<section id="job-submission" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Job submission</h1>
 <p><em>IMPORTANT: Do not modify the sections below unless you know what you are doing!!</em> The following code cells should run as is because they take arguments from the settings section above. If you modify them, make sure to understand what they do and how they work together to submit your job to the HPC cluster.</p>
-<section id="give-execution-permission-to-your-job-script" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="give-execution-permission-to-your-job-script"><span class="header-section-number">10.1</span> Give execution permission to your job script</h2>
+<section id="give-execution-permission-to-your-job-script" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="give-execution-permission-to-your-job-script"><span class="header-section-number">11.1</span> Give execution permission to your job script</h2>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x <span class="st">"</span><span class="va">$SCRIPT_TO_RUN</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="write-submission-script" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="write-submission-script"><span class="header-section-number">10.2</span> Write Submission Script</h2>
+<section id="write-submission-script" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="write-submission-script"><span class="header-section-number">11.2</span> Write Submission Script</h2>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$SCHEDULER_SCRIPT</span><span class="st">"</span> <span class="op">&lt;&lt;EOF</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">#!/bin/bash</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">#PBS -N </span><span class="va">$JOB_NAME</span></span>
@@ -359,14 +364,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x <span class="st">"</span><span class="va">$SCHEDULER_SCRIPT</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="submit-job" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="submit-job"><span class="header-section-number">10.3</span> Submit Job</h2>
+<section id="submit-job" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="submit-job"><span class="header-section-number">11.3</span> Submit Job</h2>
 <p>‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="st">"</span><span class="va">$SCHEDULER_SCRIPT</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="optional-check-job-status" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Optional: Check Job Status</h1>
+<section id="optional-check-job-status" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Optional: Check Job Status</h1>
 <p>You can check the status of your submitted job using the <code>qstat</code> command followed by your username or job ID. This will show you whether your job is queued, running, or completed. For example:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qstat</span> <span class="at">-u</span> USERNAME</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Replace <code>USERNAME</code> with your actual username to see all your jobs, or use the specific job ID to check the status of a particular job.</p>

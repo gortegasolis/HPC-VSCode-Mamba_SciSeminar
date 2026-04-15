@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="disable-automatic-terminal-creation-in-vs-code" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Disable Automatic Terminal Creation in VS Code</h1>
-<p>VS Code may create extra terminals because of restored sessions, Python auto-activation, or debug/task behavior. Disable these triggers so you can keep working in one terminal.</p>
+<p>VS Code may create extra terminals the first time you click the a code cell in a working session. Disable these triggers so you can control which terminal your commands run in.</p>
 <section id="open-your-settings-json" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="open-your-settings-json"><span class="header-section-number">4.1</span> Open your settings JSON</h2>
 <p>Use <strong>Ctrl+Shift+P</strong> and run:</p>
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"python.terminal.activateEnvironment"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"debug.internalConsoleOptions"</span><span class="fu">:</span> <span class="st">"neverOpen"</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>With these settings, VS Code is less likely to open new terminals by itself. You can still open new terminals by clicking Terminal&gt; New Terminal on the menu.</p>
+<p>With these settings, VS Code is less likely to open new terminals by itself. You can still open new terminals by clicking <strong>Terminal&gt; New Terminal</strong> on the menu.</p>
 
 
 </section>

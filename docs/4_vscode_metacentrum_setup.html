@@ -180,17 +180,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#goal" id="toc-goal" class="nav-link active" data-scroll-target="#goal"><span class="header-section-number">6</span> Goal</a></li>
-  <li><a href="#configure-metacentrum-for-vs-code-recommended-method" id="toc-configure-metacentrum-for-vs-code-recommended-method" class="nav-link" data-scroll-target="#configure-metacentrum-for-vs-code-recommended-method"><span class="header-section-number">7</span> Configure MetaCentrum for VS Code (recommended method)</a>
+  <li><a href="#note" id="toc-note" class="nav-link active" data-scroll-target="#note"><span class="header-section-number">6</span> Note</a></li>
+  <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal"><span class="header-section-number">7</span> Goal</a></li>
+  <li><a href="#configure-metacentrum-for-vs-code-recommended-method" id="toc-configure-metacentrum-for-vs-code-recommended-method" class="nav-link" data-scroll-target="#configure-metacentrum-for-vs-code-recommended-method"><span class="header-section-number">8</span> Configure MetaCentrum for VS Code (recommended method)</a>
   <ul class="collapse">
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">7.1</span> Prerequisites</a></li>
-  <li><a href="#create-a-local-ssh-key-for-this-workflow" id="toc-create-a-local-ssh-key-for-this-workflow" class="nav-link" data-scroll-target="#create-a-local-ssh-key-for-this-workflow"><span class="header-section-number">7.2</span> 1. Create a local SSH key for this workflow</a></li>
-  <li><a href="#configure-.sshconfig-on-your-workstation" id="toc-configure-.sshconfig-on-your-workstation" class="nav-link" data-scroll-target="#configure-.sshconfig-on-your-workstation"><span class="header-section-number">7.3</span> 2. Configure <code>~/.ssh/config</code> on your workstation</a></li>
-  <li><a href="#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" id="toc-start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" class="nav-link" data-scroll-target="#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node"><span class="header-section-number">7.4</span> 3. Start an interactive job and launch SSH server on the compute node</a></li>
-  <li><a href="#connect-from-vs-code-to-the-compute-node" id="toc-connect-from-vs-code-to-the-compute-node" class="nav-link" data-scroll-target="#connect-from-vs-code-to-the-compute-node"><span class="header-section-number">7.5</span> 4. Connect from VS Code to the compute node</a></li>
-  <li><a href="#validate-the-connection-in-vs-code-terminal" id="toc-validate-the-connection-in-vs-code-terminal" class="nav-link" data-scroll-target="#validate-the-connection-in-vs-code-terminal"><span class="header-section-number">7.6</span> 5. Validate the connection in VS Code terminal</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">8.1</span> Prerequisites</a></li>
+  <li><a href="#create-a-local-ssh-key-for-this-workflow" id="toc-create-a-local-ssh-key-for-this-workflow" class="nav-link" data-scroll-target="#create-a-local-ssh-key-for-this-workflow"><span class="header-section-number">8.2</span> 1. Create a local SSH key for this workflow</a></li>
+  <li><a href="#configure-.sshconfig-on-your-workstation" id="toc-configure-.sshconfig-on-your-workstation" class="nav-link" data-scroll-target="#configure-.sshconfig-on-your-workstation"><span class="header-section-number">8.3</span> 2. Configure <code>~/.ssh/config</code> on your workstation</a></li>
+  <li><a href="#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" id="toc-start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" class="nav-link" data-scroll-target="#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node"><span class="header-section-number">8.4</span> 3. Start an interactive job and launch SSH server on the compute node</a></li>
+  <li><a href="#connect-from-vs-code-to-the-compute-node" id="toc-connect-from-vs-code-to-the-compute-node" class="nav-link" data-scroll-target="#connect-from-vs-code-to-the-compute-node"><span class="header-section-number">8.5</span> 4. Connect from VS Code to the compute node</a></li>
+  <li><a href="#validate-the-connection-in-vs-code-terminal" id="toc-validate-the-connection-in-vs-code-terminal" class="nav-link" data-scroll-target="#validate-the-connection-in-vs-code-terminal"><span class="header-section-number">8.6</span> 5. Validate the connection in VS Code terminal</a></li>
   </ul></li>
-  <li><a href="#notes-for-hpc-work" id="toc-notes-for-hpc-work" class="nav-link" data-scroll-target="#notes-for-hpc-work"><span class="header-section-number">8</span> Notes for HPC Work</a></li>
+  <li><a href="#notes-for-hpc-work" id="toc-notes-for-hpc-work" class="nav-link" data-scroll-target="#notes-for-hpc-work"><span class="header-section-number">9</span> Notes for HPC Work</a></li>
   </ul>
 </nav>
     </div>
@@ -222,23 +223,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="goal" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Goal</h1>
+<section id="note" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Note</h1>
+<p><strong>This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.</strong> If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need <strong>Ctrl+Shift+V</strong> to paste in the terminal.</p>
+</section>
+<section id="goal" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Goal</h1>
 <p>This chapter explains the recommended MetaCentrum workflow where the VS Code server runs on a compute node and the UI runs on your workstation.</p>
 </section>
-<section id="configure-metacentrum-for-vs-code-recommended-method" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Configure MetaCentrum for VS Code (recommended method)</h1>
+<section id="configure-metacentrum-for-vs-code-recommended-method" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Configure MetaCentrum for VS Code (recommended method)</h1>
 <p>The official recommendation is to run the VS Code server on a <strong>computing node</strong> (inside a job), not on a shared frontend.</p>
-<section id="prerequisites" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">7.1</span> Prerequisites</h2>
+<section id="prerequisites" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">8.1</span> Prerequisites</h2>
 <ul>
 <li>VS Code extension: <strong>Remote - SSH</strong> (Microsoft)</li>
 <li>Your MetaCentrum account and SSH access to a frontend (for example <code>skirit.metacentrum.cz</code>)</li>
 <li>A free TCP port between <code>7000</code> and <code>30000</code> (example below uses <code>26759</code>)</li>
 </ul>
 </section>
-<section id="create-a-local-ssh-key-for-this-workflow" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="create-a-local-ssh-key-for-this-workflow"><span class="header-section-number">7.2</span> 1. Create a local SSH key for this workflow</h2>
+<section id="create-a-local-ssh-key-for-this-workflow" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="create-a-local-ssh-key-for-this-workflow"><span class="header-section-number">8.2</span> 1. Create a local SSH key for this workflow</h2>
 <p>On your workstation:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-f</span> ~/.ssh/metacentrum_vscode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This creates:</p>
@@ -247,8 +252,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>public key: <code>~/.ssh/metacentrum_vscode.pub</code></li>
 </ul>
 </section>
-<section id="configure-.sshconfig-on-your-workstation" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="configure-.sshconfig-on-your-workstation"><span class="header-section-number">7.3</span> 2. Configure <code>~/.ssh/config</code> on your workstation</h2>
+<section id="configure-.sshconfig-on-your-workstation" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="configure-.sshconfig-on-your-workstation"><span class="header-section-number">8.3</span> 2. Configure <code>~/.ssh/config</code> on your workstation</h2>
 <p>Pick your preferred frontend and chosen port, then add entries similar to:</p>
 <pre class="ssh-config"><code>Host skirit.metacentrum.cz
   Port 22
@@ -259,8 +264,8 @@ Host *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *
   IdentityFile ~/.ssh/metacentrum_vscode</code></pre>
 <p>This tells VS Code to use your selected port and key when connecting to compute nodes.</p>
 </section>
-<section id="start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="start-an-interactive-job-and-launch-ssh-server-on-the-compute-node"><span class="header-section-number">7.4</span> 3. Start an interactive job and launch SSH server on the compute node</h2>
+<section id="start-an-interactive-job-and-launch-ssh-server-on-the-compute-node" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="start-an-interactive-job-and-launch-ssh-server-on-the-compute-node"><span class="header-section-number">8.4</span> 3. Start an interactive job and launch SSH server on the compute node</h2>
 <p>First request an interactive job from a frontend:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qsub</span> <span class="at">-I</span> <span class="at">-N</span> vscode_dev <span class="at">-l</span> select=1:ncpus=4:mem=16gb <span class="at">-l</span> walltime=04:00:00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>After the shell opens on the compute node, run:</p>
@@ -287,8 +292,8 @@ Host *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Keep this job running. The printed hostname is the compute node you will connect to from VS Code.</p>
 </section>
-<section id="connect-from-vs-code-to-the-compute-node" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="connect-from-vs-code-to-the-compute-node"><span class="header-section-number">7.5</span> 4. Connect from VS Code to the compute node</h2>
+<section id="connect-from-vs-code-to-the-compute-node" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="connect-from-vs-code-to-the-compute-node"><span class="header-section-number">8.5</span> 4. Connect from VS Code to the compute node</h2>
 <p>Use <strong>Ctrl+Shift+P</strong>:</p>
 <ul>
 <li><code>Remote-SSH: Connect to Host...</code></li>
@@ -296,16 +301,16 @@ Host *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *
 </ul>
 <p>Because of your SSH config, VS Code will use port <code>26759</code> and key <code>~/.ssh/metacentrum_vscode</code>.</p>
 </section>
-<section id="validate-the-connection-in-vs-code-terminal" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="validate-the-connection-in-vs-code-terminal"><span class="header-section-number">7.6</span> 5. Validate the connection in VS Code terminal</h2>
+<section id="validate-the-connection-in-vs-code-terminal" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="validate-the-connection-in-vs-code-terminal"><span class="header-section-number">8.6</span> 5. Validate the connection in VS Code terminal</h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should see your compute-node hostname, your username, and your working directory.</p>
 </section>
 </section>
-<section id="notes-for-hpc-work" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Notes for HPC Work</h1>
+<section id="notes-for-hpc-work" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Notes for HPC Work</h1>
 <ul>
 <li>Use frontends for login and job submission only.</li>
 <li>Run development workloads in compute-node jobs.</li>
