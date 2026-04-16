@@ -223,16 +223,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="note" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Note</h1>
-<p><strong>This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.</strong> If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.</p>
+<p><strong>This tutorial assumes that you successfully disabled automatic terminal creation in VSCode.</strong> If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.</p>
 </section>
 <section id="goal" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Goal</h1>
-<p>Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.</p>
+<p>Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting jobs.</p>
 </section>
 <section id="connect-to-the-login-node-through-ssh" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Connect to the login node through SSH</h1>
 <p>Open a terminal on your personal computer and connect to the HPC cluster’s login node using SSH. For example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@skirit.metacentrum.cz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> gortega@skirit.metacentrum.cz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Replace <code>USERNAME</code> with your actual username and <code>skirit.metacentrum.cz</code> with the appropriate login node for your cluster.</p>
 </section>
 <section id="request-an-interactive-session" class="level1" data-number="7">

@@ -6,22 +6,27 @@ execute:
 ---
 
 # Note
-**This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.
+
+**This tutorial assumes that you successfully disabled automatic terminal creation in VSCode.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal.
 
 # Goal
 
-Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting batch jobs.
+Create and manage a Mamba environment on the HPC cluster so your software is ready before submitting jobs.
 
 # Connect to the login node through SSH
+
 Open a terminal on your personal computer and connect to the HPC cluster's login node using SSH. For example:
+
 ```{bash}
-ssh USERNAME@skirit.metacentrum.cz
+ssh gortega@skirit.metacentrum.cz
 ```
+
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
 
 # Request an interactive session
 
 Run this command from a login node to request an interactive PBS session. After a short time, you will get a message that your interactive session started and your terminal will point to a compute node.
+
 ```{bash}
 qsub -I \
   -N mamba_setup \
@@ -33,6 +38,7 @@ qsub -I \
 # Run environment setup inside the interactive session
 
 After PBS allocates the node and you see the interactive shell prompt, run:
+
 ```{bash}
 module add mambaforge
 mamba create --prefix /storage/brno2/home/gortega/mamba/envs/geostats -c conda-forge "r-terra>=1.8"
@@ -43,12 +49,15 @@ The code above will install R as a "side effect" of installing version 1.8 or hi
 # Activate the environment
 
 Here we will activate the environment to check that it works.
+
 ```{bash}
 mamba activate /storage/brno2/home/gortega/mamba/envs/geostats
 ```
 
 # Install more packages
-You can install more packages in the same environment. For python , just replace the package name after *conda-forge* with the one you want to install. For R packages you have to write r-PACKAGE_NAME. 
+
+You can install more packages in the same environment. For python , just replace the package name after *conda-forge* with the one you want to install. For R packages you have to write r-PACKAGE_NAME.
+
 ```{bash}
 mamba install -c conda-forge geopandas r-sf
 ```
@@ -56,16 +65,19 @@ mamba install -c conda-forge geopandas r-sf
 The most recommended way to install packages inside your environment is to use `mamba install...` because it will automatically resolve dependencies and propose a working configuration for all the packages in your environment. However, you can still install packages from other sources (e.g., using `pip` for Python or `install.packages()` for R) if you prefer, but be aware that this may lead to dependency conflicts or issues with reproducibility.
 
 Example of installing an R package from GitHub using `remotes`:
+
 ```{bash}
 Rscript -e "devtools::install_github('gortegasolis/geomattR', dependencies = FALSE, upgrade = 'never', force = TRUE)"
 ```
 
 # Deactivate the environment when you are done
+
 ```{bash}
 mamba deactivate
 ```
 
 # Exit the interactive session
+
 ```{bash}
 exit
 ```
