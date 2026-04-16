@@ -81,7 +81,7 @@ Now you can move to your working directory and check that the files were copied 
 
 ```{bash}
 cd /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-ls -l
+ls -lh
 ```
 
 # Scheduler settings
@@ -156,7 +156,6 @@ Rscript - <<'RSCRIPT'
 ###########################################################################
 # PASTE YOUR R CODE BELOW THIS LINE.
 ###########################################################################
-
 
 
 library(terra)
