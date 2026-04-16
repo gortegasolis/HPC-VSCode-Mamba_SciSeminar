@@ -18,7 +18,7 @@ Create and manage a Mamba environment on the HPC cluster so your software is rea
 Open a terminal on your personal computer and connect to the HPC cluster's login node using SSH. For example:
 
 ```{bash}
-ssh gortega@skirit.metacentrum.cz
+ssh USERNAME@skirit.metacentrum.cz
 ```
 
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.

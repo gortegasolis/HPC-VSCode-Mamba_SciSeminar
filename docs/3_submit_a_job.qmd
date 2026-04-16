@@ -18,7 +18,7 @@ Prepare a scheduler script with suitable resources and submit a reproducible bat
 Open a terminal on your personal computer and connect to the HPC cluster's login node using SSH. For example:
 
 ```{bash}
-ssh gortega@skirit.metacentrum.cz
+ssh USERNAME@skirit.metacentrum.cz
 ```
 
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
@@ -60,11 +60,11 @@ exit
 Use `scp` to copy your dataset. For example:
 
 ```{bash}
-scp Data/COP90.tif gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
+scp Data/COP90.tif USERNAME@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
 ```
 
 ```{bash}
-scp Data/South.gpkg gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
+scp Data/South.gpkg USERNAME@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
 ```
 
 # Connect to the login node again through SSH
@@ -238,5 +238,5 @@ exit
 Once your job has completed, you can use `scp` to copy the output files from the HPC cluster back to your local machine. For example:
 
 ```{bash}
-scp gortega@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/cropped.tif Data/
+scp USERNAME@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/cropped.tif Data/
 ```
