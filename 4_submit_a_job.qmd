@@ -7,7 +7,7 @@ execute:
 
 # Note
 
-**This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you'll need **Ctrl+Shift+V** to paste in the terminal.
+**This tutorial assumes that you successfully configured VSCode and have already created a Mamba environment on the HPC cluster.** If VSCode is properly working, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you'll need **Ctrl+Shift+V** to paste in the terminal.
 
 **Please remember to replace *USERNAME* with your actual username and *skirit.metacentrum.cz* with the appropriate login node for your cluster.**
 
