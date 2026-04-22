@@ -1,5 +1,5 @@
 ---
-title: "Submit your job using the scheduler"
+title: "Check mamba environment and copy data to HPC"
 author: "Gabriel Ortega-Solís"
 execute:
   eval: false
@@ -64,11 +64,11 @@ exit
 Now that the working folder exists on the HPC cluster, use `scp` on your personal computer to copy your dataset to it. For example:
 
 ```{bash}
-scp Data/COP90.tif USERNAME@skirit.metacentrum.cz:/storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/
+scp Data/COP90.tif USERNAME@skirit.metacentrum.cz:/storage/brno2/home/USERNAME/HPC-VSCode-Mamba_SciSeminar/
 ```
 
 ```{bash}
-scp Data/South.gpkg USERNAME@skirit.metacentrum.cz:/storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/
+scp Data/South.gpkg USERNAME@skirit.metacentrum.cz:/storage/brno2/home/USERNAME/HPC-VSCode-Mamba_SciSeminar/
 ```
 
 # Connect to the login node again through SSH
