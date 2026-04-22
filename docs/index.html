@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -150,15 +150,7 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#contents" id="toc-contents" class="nav-link active" data-scroll-target="#contents"><span class="header-section-number">0.1</span> Contents</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -193,20 +185,11 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a simple <em>and a bit unconventional</em> approach for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.</p>
+<p>This is a simple approach for using High-Performance Computing (HPC) clusters. It covers how to set up Python environments with Mamba and submit jobs through the PBS scheduler. The basic logic can be adapted to other schedulers like SLURM, but the specific information required will differ.</p>
 <p>The chapters are tailored to be executed in <strong>VSCode</strong> and <em>probably work also in Positron or Antigravity</em>. If you are not using one of these IDEs, you can still follow the instructions by copying and pasting the code snippets into a terminal. The main idea is to show how to set up your HPC environment and submit jobs in a way that is reproducible and enforce documented workflows.</p>
 <p>For authorative information on how to use the HPC cluster, please refer to the official documentation provided by your institution or HPC services provider. <strong>This guide is a starting point but you can do more complex tasks and optimizations once you are familiar with the basics.</strong></p>
-<section id="contents" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="contents"><span class="header-section-number">0.1</span> Contents</h2>
-<ul>
-<li><strong>VS Code Terminal Behavior</strong> — Disable automatic terminal popups in VS Code.</li>
-<li><strong>Create your Mamba environment</strong> — Request an interactive session and install software using Mamba.</li>
-<li><strong>PBS Job Submission</strong> — Configure and submit batch jobs to the HPC cluster using <code>qsub</code>.</li>
-<li><strong>MetaCentrum Remote Development</strong> — Run VS Code server on a compute node and connect from your personal computer.</li>
-</ul>
 
 
-</section>
 
 </main> <!-- /main -->
 <div id="download-qmd-wrap" style="margin-top: 2rem;"></div>
