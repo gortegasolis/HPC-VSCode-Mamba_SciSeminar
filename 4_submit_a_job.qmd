@@ -9,6 +9,10 @@ execute:
 
 **This tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster.** If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you'll need **Ctrl+Shift+V** to paste in the terminal.
 
+**Please remember to replace *USERNAME* with your actual username and *skirit.metacentrum.cz* with the appropriate login node for your cluster.**
+
+**The variable *$USER* is automatically replaced with your actual username on the HPC cluster when you run the code. However, you can also replace it with your username everywhere in the code if you prefer.**
+
 # Goal
 
 Prepare a scheduler script with suitable resources and submit a reproducible batch job with `qsub`.
@@ -22,67 +26,6 @@ ssh USERNAME@skirit.metacentrum.cz
 ```
 
 Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
-
-# Test your Mamba environment
-
-A preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn't offer you the right software (or versions) your script requires.
-
-```{bash}
-module add mambaforge
-mamba activate /storage/brno2/home/gortega/mamba/envs/geostats
-```
-
-After activating your chosen mamba environment, check if the software you need is already available. For example, if you need R you can run:
-
-```{bash}
-which R
-which Rscript
-```
-
-Both lines should point to an R or Rscript executable inside your Mamba environment.
-
-Now create your working directory if it doesn't exist and move to it:
-
-```{bash}
-mkdir -p /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-cd /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-```
-
-Deactivate the Mamba environment and exit the login node momentarily to copy the working data to the compute node in the next section.:
-
-```{bash}
-mamba deactivate
-exit
-```
-
-# Copy data to the HPC cluster
-
-Use `scp` to copy your dataset. For example:
-
-```{bash}
-scp Data/COP90.tif USERNAME@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-```
-
-```{bash}
-scp Data/South.gpkg USERNAME@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-```
-
-# Connect to the login node again through SSH
-
-Repeat the previous SSH command to connect to the login node again:
-
-```{bash}
-ssh USERNAME@skirit.metacentrum.cz
-```
-
-Replace `USERNAME` with your actual username and `skirit.metacentrum.cz` with the appropriate login node for your cluster.
-
-Now you can move to your working directory and check that the files were copied successfully:
-
-```{bash}
-cd /storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/
-ls -lh
-```
 
 # Scheduler settings
 
@@ -128,12 +71,17 @@ SCRIPT_TO_RUN="run_job.sh"
 SCHEDULER_SCRIPT="submit_job.pbs"
 
 # Name of the Mamba environment used by the job.
-MAMBA_ENV="/storage/brno2/home/gortega/mamba/envs/geostats"
+MAMBA_ENV="/storage/brno2/home/$USER/mamba/envs/geostats"
 
 # Working directory where scripts are created and the job is launched.
-WORK_DIR="/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar"
+WORK_DIR="/storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar"
 ```
 
+# Move to the work folder and verify everything is in place
+```{bash}
+cd $WORK_DIR
+ls -lh
+```
 # Write the bash script to run your job
 
 This section assumes you already tested your script and know it works. Here we just write the script to a file, but you can also create it with a text editor and copy-paste the content. The important thing is that the script contains all the commands needed to run your job, including loading packages/libraries, accessing datasets, and saving outputs.
@@ -219,10 +167,8 @@ qsub "$SCHEDULER_SCRIPT"
 You can check the status of your submitted job using the `qstat` command followed by your username or job ID. This will show you whether your job is queued, running, or completed. For example:
 
 ```{bash}
-qstat -u USERNAME
+qstat -u $USER
 ```
-
-Replace `USERNAME` with your actual username to see all your jobs, or use the specific job ID to check the status of a particular job.
 
 # Quit the SSH session
 
@@ -234,8 +180,8 @@ exit
 
 # Copy output files back to local
 
-Once your job has completed, you can use `scp` to copy the output files from the HPC cluster back to your local machine. For example:
+Once your job has completed, you can use `scp` to copy the output files from the HPC cluster back to your local machine. Remember to replace USERNAME with your actual username and skirit.metacentrum.cz with the appropriate login node for your cluster.
 
 ```{bash}
-scp USERNAME@skirit.metacentrum.cz:/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar/cropped.tif Data/
+scp USERNAME@skirit.metacentrum.cz:/storage/brno2/home/USERNAME/HPC-VSCode-Mamba_SciSeminar/cropped.tif Data/
 ```

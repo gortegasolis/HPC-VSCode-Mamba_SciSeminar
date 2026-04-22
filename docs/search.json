@@ -50,133 +50,143 @@
     ]
   },
   {
-    "objectID": "3_submit_a_job.html",
-    "href": "3_submit_a_job.html",
+    "objectID": "3_check_mamba_env_and_copy_data_to_HPC.html",
+    "href": "3_check_mamba_env_and_copy_data_to_HPC.html",
     "title": "4  Submit your job using the scheduler",
     "section": "",
-    "text": "5 Note\nThis tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster. If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need Ctrl+Shift+V to paste in the terminal.",
+    "text": "5 Note\nThis tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster. If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need Ctrl+Shift+V to paste in the terminal.\nPlease remember to replace USERNAME with your actual username and skirit.metacentrum.cz with the appropriate login node for your cluster.\nThe variable $USER is automatically replaced with your actual username on the HPC cluster when you run the code. However, you can also replace it with your username everywhere in the code if you prefer.\n\n\n6 Goal\nPrepare a scheduler script with suitable resources and submit a reproducible batch job with qsub.\n\n\n7 Connect to the login node through SSH\nOpen a terminal on your personal computer and connect to the HPC cluster’s login node using SSH. For example:\nssh USERNAME@skirit.metacentrum.cz\nReplace USERNAME with your actual username and skirit.metacentrum.cz with the appropriate login node for your cluster.\n\n\n8 Test your Mamba environment\nA preconfigured Mamba environment will allow you to control the software available. Otherwise, your job could fail because the server doesn’t offer you the right software (or versions) your script requires. Check the previous chapter if you haven’t created a mamba environment yet. Here you must be aware that I am using the “easy” mode and I am not moving the mamba environment to /scratch, but just loading it from its original location. Advanced users interested in long running jobs should consider moving their mamba environment to /scratch. This will speed up the loading of the environment and ensure network instability won’t affect your job.\nmodule add mambaforge\nmamba activate /storage/brno2/home/$USER/mamba/envs/geostats\nAfter activating your chosen mamba environment, check if the software you need is already available. For example, if you need R you can run:\nwhich R\nwhich Rscript\nBoth lines should point to an R or Rscript executable inside your Mamba environment.\nNow create your working directory if it doesn’t exist and move to it:\nmkdir -p /storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/\ncd /storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/\nDeactivate the Mamba environment and exit the login node momentarily to copy the working data to the compute node in the next section.:\nmamba deactivate\nexit\n\n\n9 Copy data to the HPC cluster\nNow that the working folder exists on the HPC cluster, use scp on your personal computer to copy your dataset to it. For example:\nscp Data/COP90.tif USERNAME@skirit.metacentrum.cz:/storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/\nscp Data/South.gpkg USERNAME@skirit.metacentrum.cz:/storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/\n\n\n10 Connect to the login node again through SSH\nRepeat the previous SSH command to connect to the login node again:\nssh USERNAME@skirit.metacentrum.cz\nReplace USERNAME with your actual username and skirit.metacentrum.cz with the appropriate login node for your cluster.\nNow you can move to your working directory and check that the files were copied successfully:\ncd /storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar/\nls -lh",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "3_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
-    "href": "3_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
-    "title": "4  Submit your job using the scheduler",
-    "section": "11.1 General rule-of-thumb strategy for requesting HPC resources",
-    "text": "11.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
-    ]
-  },
-  {
-    "objectID": "3_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
-    "href": "3_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
-    "title": "4  Submit your job using the scheduler",
-    "section": "11.2 Settings to modify before launching your HPC job",
-    "text": "11.2 Settings to modify before launching your HPC job\nModify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"/storage/brno2/home/gortega/mamba/envs/geostats\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/gortega/HPC-VSCode-Mamba_SciSeminar\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
-    ]
-  },
-  {
-    "objectID": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
-    "href": "3_submit_a_job.html#give-execution-permission-to-your-job-script",
-    "title": "4  Submit your job using the scheduler",
-    "section": "13.1 Give execution permission to your job script",
-    "text": "13.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
-    ]
-  },
-  {
-    "objectID": "3_submit_a_job.html#write-submission-script",
-    "href": "3_submit_a_job.html#write-submission-script",
-    "title": "4  Submit your job using the scheduler",
-    "section": "13.2 Write submission script",
-    "text": "13.2 Write submission script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
-    ]
-  },
-  {
-    "objectID": "3_submit_a_job.html#submit-job",
-    "href": "3_submit_a_job.html#submit-job",
-    "title": "4  Submit your job using the scheduler",
-    "section": "13.3 Submit job",
-    "text": "13.3 Submit job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
-    "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
-    ]
-  },
-  {
-    "objectID": "4_vscode_metacentrum_setup.html",
-    "href": "4_vscode_metacentrum_setup.html",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
+    "objectID": "4_submit_a_job.html",
+    "href": "4_submit_a_job.html",
+    "title": "5  Submit your job using the scheduler",
     "section": "",
-    "text": "6 Note\nThis tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster. If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need Ctrl+Shift+V to paste in the terminal.",
+    "text": "6 Note\nThis tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster. If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need Ctrl+Shift+V to paste in the terminal.\nPlease remember to replace USERNAME with your actual username and skirit.metacentrum.cz with the appropriate login node for your cluster.\nThe variable $USER is automatically replaced with your actual username on the HPC cluster when you run the code. However, you can also replace it with your username everywhere in the code if you prefer.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "4_vscode_metacentrum_setup.html#prerequisites",
-    "href": "4_vscode_metacentrum_setup.html#prerequisites",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
-    "section": "8.1 Prerequisites",
-    "text": "8.1 Prerequisites\n\nVS Code extension: Remote - SSH (Microsoft)\nYour MetaCentrum account and SSH access to a frontend (for example skirit.metacentrum.cz)\nA free TCP port between 7000 and 30000 (example below uses 26759)",
+    "objectID": "4_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
+    "href": "4_submit_a_job.html#general-rule-of-thumb-strategy-for-requesting-hpc-resources",
+    "title": "5  Submit your job using the scheduler",
+    "section": "9.1 General rule-of-thumb strategy for requesting HPC resources",
+    "text": "9.1 General rule-of-thumb strategy for requesting HPC resources\nRun a small test job in your computer or in an interactive session on the cluster with a subset of the data (1-5% the whole dataset) and modest resources (1–4 cores, 8–16 GB RAM, 10–30 minutes walltime).\nMeasure:\n\nElapsed time.\nMax memory usage.\nCPU utilisation (are all cores busy or mostly idle?).\n\nIf runtime scales roughly linearly with the size of your dataset, increase the required time accordingly and add ~10–20% safety margin (e.g., if the test used 10 minutes for 5% of the data, you might need 4 hours for the full dataset).\nFor memory, take the maximum memory usage observed during the test, increase with input size if memory grows with data, then add ~20–50% safety margin if you’re unsure (e.g., if the test used 1 GB for 5% of the data, you might need 24 GB for the full dataset).",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "4_vscode_metacentrum_setup.html#create-a-local-ssh-key-for-this-workflow",
-    "href": "4_vscode_metacentrum_setup.html#create-a-local-ssh-key-for-this-workflow",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
-    "section": "8.2 1. Create a local SSH key for this workflow",
-    "text": "8.2 1. Create a local SSH key for this workflow\nOn your personal computer:\nssh-keygen -f ~/.ssh/metacentrum_vscode\nThis creates:\n\nprivate key: ~/.ssh/metacentrum_vscode\npublic key: ~/.ssh/metacentrum_vscode.pub",
+    "objectID": "4_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
+    "href": "4_submit_a_job.html#settings-to-modify-before-launching-your-hpc-job",
+    "title": "5  Submit your job using the scheduler",
+    "section": "9.2 Settings to modify before launching your HPC job",
+    "text": "9.2 Settings to modify before launching your HPC job\nModify these settings according to the requirements of your job script. The quoted example values are just placeholders you should replace.\n# Write a name for your job.\nJOB_NAME=\"demo_job\"\n\n# Number of CPU cores requested for the job.\nNCPUS=4\n\n# Total memory requested for the job.\nMEM=\"8gb\"\n\n# Maximum wall-clock runtime allowed for the job in hours:minutes:seconds.\nWALLTIME=\"01:00:00\"\n\n# Name of the script that will contain the job commands.\nSCRIPT_TO_RUN=\"run_job.sh\"\n\n# Name of the submission script passed to the HPC scheduler.\nSCHEDULER_SCRIPT=\"submit_job.pbs\"\n\n# Name of the Mamba environment used by the job.\nMAMBA_ENV=\"/storage/brno2/home/$USER/mamba/envs/geostats\"\n\n# Working directory where scripts are created and the job is launched.\nWORK_DIR=\"/storage/brno2/home/$USER/HPC-VSCode-Mamba_SciSeminar\"",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "4_vscode_metacentrum_setup.html#configure-.sshconfig-on-your-personal-computer",
-    "href": "4_vscode_metacentrum_setup.html#configure-.sshconfig-on-your-personal-computer",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
-    "section": "8.3 2. Configure ~/.ssh/config on your personal computer",
-    "text": "8.3 2. Configure ~/.ssh/config on your personal computer\nPick your preferred frontend and chosen port, then add entries similar to:\nHost skirit.metacentrum.cz\n  Port 22\n  PubkeyAuthentication no\n\nHost *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *.ibot.cas.cz *.ics.muni.cz *.metacentrum.cz *.meta.zcu.cz *.natur.cuni.cz *.nti.tul.cz *.ueb.cas.cz\n  Port 26759\n  IdentityFile ~/.ssh/metacentrum_vscode\nThis tells VS Code to use your selected port and key when connecting to compute nodes.",
+    "objectID": "4_submit_a_job.html#give-execution-permission-to-your-job-script",
+    "href": "4_submit_a_job.html#give-execution-permission-to-your-job-script",
+    "title": "5  Submit your job using the scheduler",
+    "section": "12.1 Give execution permission to your job script",
+    "text": "12.1 Give execution permission to your job script\nchmod +x \"$SCRIPT_TO_RUN\"",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "4_vscode_metacentrum_setup.html#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node",
-    "href": "4_vscode_metacentrum_setup.html#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
-    "section": "8.4 3. Start an interactive job and launch SSH server on the compute node",
-    "text": "8.4 3. Start an interactive job and launch SSH server on the compute node\nFirst request an interactive job from a frontend:\nqsub -I -N vscode_dev -l select=1:ncpus=4:mem=16gb -l walltime=04:00:00\nAfter the shell opens on the compute node, run:\nmkdir -p \"$SCRATCHDIR/.ssh\"\nchmod 700 \"$SCRATCHDIR/.ssh\"\nrm -f \"$SCRATCHDIR/.ssh/server_key\" \"$SCRATCHDIR/.ssh/server_key.pub\"\nssh-keygen -f \"$SCRATCHDIR/.ssh/server_key\" -N \"\" -C \"VSCode\" -q -t ed25519\n\ntouch \"$SCRATCHDIR/.ssh/authorized_keys\"\nchmod 600 \"$SCRATCHDIR/.ssh/authorized_keys\"\nNow append your local public key (from ~/.ssh/metacentrum_vscode.pub) into authorized_keys on the compute node:\ncat &gt;&gt; \"$SCRATCHDIR/.ssh/authorized_keys\"\n# paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D\nChoose/check port and start SSH daemon:\nPORT=26759\nnetstat -tan | grep -q \"0.0.0.0:$PORT \" && { echo \"Port $PORT is busy\"; exit 1; }\n\n/usr/sbin/sshd -D -p \"$PORT\" \\\n  -o \"HostKey $SCRATCHDIR/.ssh/server_key\" \\\n  -o \"PermitRootLogin no\" \\\n  -o \"PasswordAuthentication no\" \\\n  -o \"ChallengeResponseAuthentication no\" &\n\nhostname\nKeep this job running. The printed hostname is the compute node you will connect to from VS Code.",
+    "objectID": "4_submit_a_job.html#write-submission-script",
+    "href": "4_submit_a_job.html#write-submission-script",
+    "title": "5  Submit your job using the scheduler",
+    "section": "12.2 Write submission script",
+    "text": "12.2 Write submission script\ncat &gt; \"$SCHEDULER_SCRIPT\" &lt;&lt;EOF\n#!/bin/bash\n#PBS -N $JOB_NAME\n#PBS -l select=1:ncpus=$NCPUS:mem=$MEM\n#PBS -l walltime=$WALLTIME\n#PBS -j oe\n\ncd \"\\$PBS_O_WORKDIR\"\nbash \"$SCRIPT_TO_RUN\"\nEOF\n\nchmod +x \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "4_vscode_metacentrum_setup.html#connect-from-vs-code-to-the-compute-node",
-    "href": "4_vscode_metacentrum_setup.html#connect-from-vs-code-to-the-compute-node",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
-    "section": "8.5 4. Connect from VS Code to the compute node",
-    "text": "8.5 4. Connect from VS Code to the compute node\nUse Ctrl+Shift+P:\n\nRemote-SSH: Connect to Host...\nEnter/select the compute-node hostname printed by hostname\n\nBecause of your SSH config, VS Code will use port 26759 and key ~/.ssh/metacentrum_vscode.",
+    "objectID": "4_submit_a_job.html#submit-job",
+    "href": "4_submit_a_job.html#submit-job",
+    "title": "5  Submit your job using the scheduler",
+    "section": "12.3 Submit job",
+    "text": "12.3 Submit job\n‘qsub’ is the function that will pick your PBS submission script and send it to the HPC scheduler system. The scheduler will then manage the execution of your job based on the resources you requested and the current load on the cluster. After you run this command, you should see a message confirming that your job has been submitted, along with a job ID that you can use to track its progress.\nqsub \"$SCHEDULER_SCRIPT\"",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Submit your job using the scheduler</span>"
     ]
   },
   {
-    "objectID": "4_vscode_metacentrum_setup.html#validate-the-connection-in-vs-code-terminal",
-    "href": "4_vscode_metacentrum_setup.html#validate-the-connection-in-vs-code-terminal",
-    "title": "5  Configure MetaCentrum remote development in VS Code",
-    "section": "8.6 5. Validate the connection in VS Code terminal",
-    "text": "8.6 5. Validate the connection in VS Code terminal\nhostname\nwhoami\npwd\nYou should see your compute-node hostname, your username, and your working directory.",
+    "objectID": "5_vscode_metacentrum_setup.html",
+    "href": "5_vscode_metacentrum_setup.html",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "",
+    "text": "7 Note\nThis tutorial assumes that you successfully disabled automatic terminal creation in VSCode and have already created a Mamba environment on the HPC cluster. If VSCode is properly configured, you can just open a terminal manually and click on the run button in every code cell, and the code will be sent to your currently active terminal. If VSCode is not configured yet, you can copy and paste the code snippets in this tutorial into a terminal. Probably you’ll need Ctrl+Shift+V to paste in the terminal.",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "5_vscode_metacentrum_setup.html#prerequisites",
+    "href": "5_vscode_metacentrum_setup.html#prerequisites",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "9.1 Prerequisites",
+    "text": "9.1 Prerequisites\n\nVS Code extension: Remote - SSH (Microsoft)\nYour MetaCentrum account and SSH access to a frontend (for example skirit.metacentrum.cz)\nA free TCP port between 7000 and 30000 (example below uses 26759)",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "5_vscode_metacentrum_setup.html#create-a-local-ssh-key-for-this-workflow",
+    "href": "5_vscode_metacentrum_setup.html#create-a-local-ssh-key-for-this-workflow",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "9.2 1. Create a local SSH key for this workflow",
+    "text": "9.2 1. Create a local SSH key for this workflow\nOn your personal computer:\nssh-keygen -f ~/.ssh/metacentrum_vscode\nThis creates:\n\nprivate key: ~/.ssh/metacentrum_vscode\npublic key: ~/.ssh/metacentrum_vscode.pub",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "5_vscode_metacentrum_setup.html#configure-.sshconfig-on-your-personal-computer",
+    "href": "5_vscode_metacentrum_setup.html#configure-.sshconfig-on-your-personal-computer",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "9.3 2. Configure ~/.ssh/config on your personal computer",
+    "text": "9.3 2. Configure ~/.ssh/config on your personal computer\nPick your preferred frontend and chosen port, then add entries similar to:\nHost skirit.metacentrum.cz\n  Port 22\n  PubkeyAuthentication no\n\nHost *.cerit-sc.cz *.fav.zcu.cz *.fzu.cz *.grid.cesnet.cz *.hw.elixir-czech.cz *.ibot.cas.cz *.ics.muni.cz *.metacentrum.cz *.meta.zcu.cz *.natur.cuni.cz *.nti.tul.cz *.ueb.cas.cz\n  Port 26759\n  IdentityFile ~/.ssh/metacentrum_vscode\nThis tells VS Code to use your selected port and key when connecting to compute nodes.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "5_vscode_metacentrum_setup.html#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node",
+    "href": "5_vscode_metacentrum_setup.html#start-an-interactive-job-and-launch-ssh-server-on-the-compute-node",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "9.4 3. Start an interactive job and launch SSH server on the compute node",
+    "text": "9.4 3. Start an interactive job and launch SSH server on the compute node\nFirst request an interactive job from a frontend:\nqsub -I -N vscode_dev -l select=1:ncpus=4:mem=16gb -l walltime=04:00:00\nAfter the shell opens on the compute node, run:\nmkdir -p \"$SCRATCHDIR/.ssh\"\nchmod 700 \"$SCRATCHDIR/.ssh\"\nrm -f \"$SCRATCHDIR/.ssh/server_key\" \"$SCRATCHDIR/.ssh/server_key.pub\"\nssh-keygen -f \"$SCRATCHDIR/.ssh/server_key\" -N \"\" -C \"VSCode\" -q -t ed25519\n\ntouch \"$SCRATCHDIR/.ssh/authorized_keys\"\nchmod 600 \"$SCRATCHDIR/.ssh/authorized_keys\"\nNow append your local public key (from ~/.ssh/metacentrum_vscode.pub) into authorized_keys on the compute node:\ncat &gt;&gt; \"$SCRATCHDIR/.ssh/authorized_keys\"\n# paste one line from ~/.ssh/metacentrum_vscode.pub, then press Ctrl+D\nChoose/check port and start SSH daemon:\nPORT=26759\nnetstat -tan | grep -q \"0.0.0.0:$PORT \" && { echo \"Port $PORT is busy\"; exit 1; }\n\n/usr/sbin/sshd -D -p \"$PORT\" \\\n  -o \"HostKey $SCRATCHDIR/.ssh/server_key\" \\\n  -o \"PermitRootLogin no\" \\\n  -o \"PasswordAuthentication no\" \\\n  -o \"ChallengeResponseAuthentication no\" &\n\nhostname\nKeep this job running. The printed hostname is the compute node you will connect to from VS Code.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "5_vscode_metacentrum_setup.html#connect-from-vs-code-to-the-compute-node",
+    "href": "5_vscode_metacentrum_setup.html#connect-from-vs-code-to-the-compute-node",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "9.5 4. Connect from VS Code to the compute node",
+    "text": "9.5 4. Connect from VS Code to the compute node\nUse Ctrl+Shift+P:\n\nRemote-SSH: Connect to Host...\nEnter/select the compute-node hostname printed by hostname\n\nBecause of your SSH config, VS Code will use port 26759 and key ~/.ssh/metacentrum_vscode.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
+    ]
+  },
+  {
+    "objectID": "5_vscode_metacentrum_setup.html#validate-the-connection-in-vs-code-terminal",
+    "href": "5_vscode_metacentrum_setup.html#validate-the-connection-in-vs-code-terminal",
+    "title": "6  Configure MetaCentrum remote development in VS Code",
+    "section": "9.6 5. Validate the connection in VS Code terminal",
+    "text": "9.6 5. Validate the connection in VS Code terminal\nhostname\nwhoami\npwd\nYou should see your compute-node hostname, your username, and your working directory.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Configure MetaCentrum remote development in VS Code</span>"
     ]
   }
 ]

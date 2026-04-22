@@ -44,7 +44,7 @@ module add mambaforge
 mamba create --prefix /storage/brno2/home/gortega/mamba/envs/geostats -c conda-forge "r-terra>=1.8"
 ```
 
-The code above will install R as a "side effect" of installing version 1.8 or higher of the `terra` package. You can replace `r-terra` with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running `mamba create -n SOME_NAME` and then install packages one by one or in groups as needed. The option `-c conda-forge` tells Mamba to look for packages in the conda-forge channel, which is a community-maintained repository of packages. You can specify other channels if you need software that is not available in conda-forge.
+The code above will install R as a "side effect" of installing version 1.8 or higher of the `terra` package. You can replace `r-terra` with any other package you want to install, and Mamba will automatically resolve and install the necessary dependencies. Alternatively, you could just create an empty environment running `mamba create -n SOME_NAME` and then install packages one by one or in groups as needed. The option `-c conda-forge` tells Mamba to look for packages in the conda-forge channel, which is a community-maintained repository of packages. You can specify other channels if you need software that is not available in conda-forge. 
 
 # Activate the environment
 
